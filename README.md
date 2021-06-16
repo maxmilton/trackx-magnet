@@ -4,7 +4,7 @@
 
 Browser extension that injects the [trackx client](https://github.com/maxmilton/trackx/tree/master/packages/client) into all web pages and collects errors. Useful to collect error samples for TrackX development.
 
-Errors are automatically tracked using TrackX and can be viewed at <https://dash.trackx.app/projects/harvest-errors>.
+Events are sent automatically and can be viewed at <https://dash.trackx.app/projects/harvest-errors>.
 
 ## How to install
 
@@ -22,6 +22,10 @@ Up-to-date versions of Google Chrome and other Chromium based browsers (e.g. Bra
 ## Bugs
 
 Please report any bugs you encounter on the [GitHub issue tracker](https://github.com/maxmilton/harvest-errors/issues).
+
+## References
+
+- <https://github.com/barbushin/javascript-errors-notifier>
 
 ## License
 

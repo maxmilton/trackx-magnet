@@ -1,19 +1,16 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable @typescript-eslint/no-var-requires, import/no-extraneous-dependencies */
 
-// https://developer.chrome.com/docs/extensions/mv3/manifest/
 // https://developer.chrome.com/docs/extensions/mv2/manifest/
 // https://developer.chrome.com/docs/extensions/reference/
-// https://developer.chrome.com/docs/extensions/mv3/devguide/
 
 const { gitRef } = require('git-ref');
 const pkg = require('./package.json');
 
 /** @type {chrome.runtime.Manifest} */
 const manifest = {
-  manifest_version: 3,
+  manifest_version: 2, // v3 restricts injecting JS so we need v2
   name: 'harvest-errors',
-  description: 'Collect errors from web pages with the trackx client',
+  description: 'Collect errors from web pages with the trackx client.',
   version: pkg.version,
   version_name: gitRef(),
   icons: {
@@ -21,22 +18,25 @@ const manifest = {
     48: 'icon48.png',
     128: 'icon128.png',
   },
-  host_permissions: ['*://*/*'],
+  permissions: ['<all_urls>', 'webRequest'],
+  background: {
+    scripts: ['background.js'],
+  },
   content_scripts: [
     {
-      matches: ['*://*/*'],
-      js: ['index.js'],
+      all_frames: true,
+      js: ['content.js'],
+      matches: ['<all_urls>'],
+      run_at: 'document_start',
     },
   ],
   incognito: 'spanning',
-  // @ts-expect-error - new format in manifest v3
-  content_security_policy: {
-    extension_pages:
-      "default-src 'self';"
-      + "connect-src 'self' https://api.trackx.app;"
-      // FIXME: CSP exception reports not sent, is it supported in extensions?
-      + 'report-uri https://api.trackx.app/v1/pxdfcbscygy/report;',
-  },
+  offline_enabled: true,
+  content_security_policy:
+    "default-src 'self';"
+    + "connect-src 'self' https://api.trackx.app;"
+    // FIXME: CSP exception reports are not sent, not supported in extensions?
+    + 'report-uri https://api.trackx.app/v1/pxdfcbscygy/report;',
 };
 
 module.exports = manifest;
