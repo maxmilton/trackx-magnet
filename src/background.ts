@@ -10,9 +10,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 chrome.webRequest.onErrorOccurred.addListener(
   (event) => {
-    addMeta('event', event);
-    sendEvent(new Error(event.error));
-    addMeta('event', null);
+    sendEvent(new Error(event.error), { ...event }, true);
   },
   { urls: ['<all_urls>'] },
 );
