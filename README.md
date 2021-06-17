@@ -10,7 +10,7 @@ Events are sent automatically and can be viewed at <https://dash.trackx.app/proj
 
 - Create a basic settings UI + add storage permission
 - Add setting to customise the API endpoint + project key
-- Add setting for a URL match blacklist so prevent sending events on matching URLs + provide a good default blacklist to guard user privacy (banking/finance, email, porn, etc.)
+- Add setting for a URL blacklist to prevent sending events on when URL contains matching text + provide a good default blacklist to guard user privacy (banking/finance, email, porn, etc.)
 
 ## How to install
 
