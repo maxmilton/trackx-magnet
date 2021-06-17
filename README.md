@@ -8,6 +8,12 @@ Events are sent automatically and can be viewed at <https://dash.trackx.app/proj
 
 ## How to install
 
+Verified testers can install directly from the Chrome Web Store:
+
+[![Add to Chrome](https://storage.googleapis.com/chrome-gcs-uploader.appspot.com/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/mPGKYBIR2uCP0ApchDXE.png)](https://chrome.google.com/webstore/detail/harvest-errors/nmdlenjlhfgjbmljgopgmigoljgmnpae)
+
+### Manual local install
+
 1. Download the latest release's `.zip` file from <https://github.com/maxmilton/harvest-errors/releases>
 1. Open <chrome://extensions>
 1. Enable developer mode
