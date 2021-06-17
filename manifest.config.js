@@ -12,7 +12,9 @@ const manifest = {
   name: 'Harvest Errors',
   description: 'Collect errors from web pages with the trackx client.',
   version: pkg.version,
-  version_name: process.env.GITHUB_REF || gitRef(),
+  version_name: process.env.GITHUB_REF
+    ? process.env.GITHUB_REF.replace('refs/tags/', '')
+    : gitRef(),
   icons: {
     16: 'icon16.png',
     48: 'icon48.png',
