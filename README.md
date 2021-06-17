@@ -6,6 +6,11 @@ Browser extension that injects the [trackx client](https://github.com/maxmilton/
 
 Events are sent automatically and can be viewed at <https://dash.trackx.app/projects/harvest-errors>.
 
+## TODO
+
+- Add a user setting for a URL match blacklist so prevent sending events on matching URLs
+  - Will also need a basic settings UI
+
 ## How to install
 
 Verified testers can install directly from the Chrome Web Store:
