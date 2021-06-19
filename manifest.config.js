@@ -4,6 +4,7 @@
 // https://developer.chrome.com/docs/extensions/reference/
 
 const { gitRef } = require('git-ref');
+const blocklist = require('./src/blocklist.json');
 const pkg = require('./package.json');
 
 /** @type {chrome.runtime.Manifest} */
@@ -27,6 +28,7 @@ const manifest = {
   content_scripts: [
     {
       all_frames: true,
+      exclude_globs: blocklist.map((word) => `*${word}*`),
       js: ['content.js'],
       matches: ['<all_urls>'],
       run_at: 'document_start',
