@@ -18,6 +18,6 @@ const init = () => {
 
 const script = document.createElement('script');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-script.textContent = `${process.env.TRACKX_CLIENT_JS!};(${init.toString()}())`;
+script.textContent = `${process.env.TRACKX_CLIENT_JS!};(${init.toString()})()`;
 (document.head || document.documentElement).appendChild(script);
 script.remove();
