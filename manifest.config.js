@@ -34,7 +34,7 @@ const manifest = {
       run_at: 'document_start',
     },
   ],
-  incognito: 'spanning',
+  incognito: 'not_allowed', // give users some privacy
   offline_enabled: true,
   content_security_policy:
     "default-src 'self';"
