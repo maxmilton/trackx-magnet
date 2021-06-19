@@ -37,9 +37,7 @@ const manifest = {
   incognito: 'not_allowed', // give users some privacy
   offline_enabled: true,
   content_security_policy:
-    "default-src 'self';"
-    + "connect-src 'self' https://api.trackx.app;"
-    // FIXME: CSP exception reports are not sent, not supported in extensions?
+    "default-src 'self' https://api.trackx.app;"
     + 'report-uri https://api.trackx.app/v1/pxdfcbscygy/report;',
 
   // https://chrome.google.com/webstore/detail/harvest-errors/nmdlenjlhfgjbmljgopgmigoljgmnpae
