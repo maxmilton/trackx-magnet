@@ -6,11 +6,6 @@ Browser extension that injects the [trackx client](https://github.com/maxmilton/
 
 Events are sent automatically and can be viewed at <https://dash.trackx.app/projects/harvest-errors>.
 
-## TODO
-
-- Create a basic settings UI + add storage permission
-- Add setting to customise the API endpoint + project key
-
 ## How to install
 
 Verified testers can install directly from the Chrome Web Store:
@@ -37,6 +32,12 @@ Please report any bugs you encounter on the [GitHub issue tracker](https://githu
 ## References
 
 - <https://github.com/barbushin/javascript-errors-notifier>
+
+## TODO
+
+- Create a basic settings UI + add storage permission
+- Add setting to customise the API endpoint e.g., for local development
+  - May be tricky to get settings data in content scripts because we need the script to init `trackx` ASAP to collect page load errors, however, the `chrome.storage` API is async
 
 ## License
 
