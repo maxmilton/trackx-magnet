@@ -1,16 +1,18 @@
-import { addMeta, sendEvent, setup } from 'trackx';
+import * as trackx from 'trackx';
 
-setup('https://api.trackx.app/v1/pxdfcbscygy/event');
-addMeta('release', process.env.APP_RELEASE);
-addMeta('agent', 'harvest-errors');
+trackx.setup('https://api.trackx.app/v1/pxdfcbscygy/event');
+trackx.meta.release = process.env.APP_RELEASE;
+trackx.meta.agent = 'harvest-errors';
 
 if (process.env.NODE_ENV !== 'production') {
-  addMeta('NODE_ENV', process.env.NODE_ENV);
+  trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
 }
 
 chrome.webRequest.onErrorOccurred.addListener(
   (event) => {
-    sendEvent(new Error(event.error), { ...event }, true);
+    trackx.sendEvent(new Error(event.error), { ...event }, true);
   },
-  { urls: ['<all_urls>'] },
+  {
+    urls: ['<all_urls>'],
+  },
 );

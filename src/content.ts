@@ -7,12 +7,12 @@ declare global {
 
 const init = () => {
   trackx.setup('https://api.trackx.app/v1/pxdfcbscygy/event');
-  trackx.addMeta('release', process.env.APP_RELEASE);
-  trackx.addMeta('agent', 'harvest-errors');
-  trackx.addMeta('top_url', window.top.location.href);
+  trackx.meta.release = process.env.APP_RELEASE;
+  trackx.meta.agent = 'harvest-errors';
+  trackx.meta.top_url = window.top.location.href;
 
   if (process.env.NODE_ENV !== 'production') {
-    trackx.addMeta('NODE_ENV', process.env.NODE_ENV);
+    trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
   }
 };
 
