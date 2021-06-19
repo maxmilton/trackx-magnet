@@ -23,6 +23,7 @@ const manifest = {
   },
   permissions: ['<all_urls>', 'webRequest'],
   background: {
+    // persistent because it's required for the chrome.webRequest API
     scripts: ['background.js'],
   },
   content_scripts: [
