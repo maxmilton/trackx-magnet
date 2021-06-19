@@ -5,7 +5,7 @@ const reBlockList = new RegExp(blocklist.join('|'), 'i');
 
 trackx.setup(
   'https://api.trackx.app/v1/pxdfcbscygy/event',
-  // prevent sending event reports which match our block list
+  // prevent sending reports with data that match words from the block list
   (data) => (reBlockList.test(
     `${data.url!}-${data.meta!.initiator as string}-${
       data.meta!.url as string
@@ -26,7 +26,7 @@ chrome.webRequest.onErrorOccurred.addListener(
     new Error(event.error),
     {
       ...event,
-      _from: 'webrequest',
+      _from: 'webRequest',
     },
     true,
   ),
