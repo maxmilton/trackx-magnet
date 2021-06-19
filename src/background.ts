@@ -1,12 +1,18 @@
 import * as trackx from 'trackx';
 import blocklist from './blocklist.json';
 
-const reBlock = new RegExp(blocklist.join('|'), 'i');
+const reBlockList = new RegExp(blocklist.join('|'), 'i');
 
 trackx.setup(
   'https://api.trackx.app/v1/pxdfcbscygy/event',
-  // eslint-disable-next-line no-underscore-dangle
-  (data) => (reBlock.test(data.url! + (data.meta!._topurl as string)) ? null : data),
+  // prevent sending event reports which match our block list
+  (data) => (reBlockList.test(
+    `${data.url!}-${data.meta!.initiator as string}-${
+      data.meta!.url as string
+    }`,
+  )
+    ? null
+    : data),
 );
 trackx.meta.release = process.env.APP_RELEASE;
 trackx.meta.agent = 'harvest-errors';
@@ -21,8 +27,6 @@ chrome.webRequest.onErrorOccurred.addListener(
     {
       ...event,
       _from: 'webrequest',
-      // eslint-disable-next-line no-restricted-globals
-      _topurl: top.location.href,
     },
     true,
   ),
