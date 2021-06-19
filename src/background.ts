@@ -3,8 +3,11 @@ import blocklist from './blocklist.json';
 
 const reBlock = new RegExp(blocklist.join('|'), 'i');
 
-// eslint-disable-next-line no-underscore-dangle
-trackx.setup('https://api.trackx.app/v1/pxdfcbscygy/event', (data) => (reBlock.test(data.url! + (data.meta!._topurl as string)) ? null : data));
+trackx.setup(
+  'https://api.trackx.app/v1/pxdfcbscygy/event',
+  // eslint-disable-next-line no-underscore-dangle
+  (data) => (reBlock.test(data.url! + (data.meta!._topurl as string)) ? null : data),
+);
 trackx.meta.release = process.env.APP_RELEASE;
 trackx.meta.agent = 'harvest-errors';
 
