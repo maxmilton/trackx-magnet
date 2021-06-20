@@ -2,9 +2,9 @@
 
 # harvest-errors
 
-Browser extension that injects the [trackx client](https://github.com/maxmilton/trackx/tree/master/packages/client) into all web pages and collects errors. Useful to collect error samples for TrackX development.
+Browser extension which injects the [trackx client](https://github.com/maxmilton/trackx/tree/master/packages/client) into all web pages and collects errors. Useful to collect error samples for TrackX development.
 
-Events are sent automatically and can be viewed at <https://dash.trackx.app/projects/harvest-errors>.
+Event reports are sent automatically and can be viewed at <https://dash.trackx.app/projects/harvest-errors>.
 
 ## How to install
 
