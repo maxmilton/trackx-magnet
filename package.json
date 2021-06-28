@@ -1,6 +1,6 @@
 {
   "name": "harvest-errors",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Browser extension to collect errors from web pages with the trackx client.",
   "repository": "maxmilton/harvest-errors",
   "author": "Max Milton <max@happycode.ltd>",
