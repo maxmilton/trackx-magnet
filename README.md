@@ -14,7 +14,7 @@ Verified testers can install directly from the Chrome Web Store:
 
 ### Manual local install
 
-1. Download the latest release's `.zip` file from <https://github.com/maxmilton/harvest-errors/releases>
+1. Download the latest release's `chrome-extension.zip` file from <https://github.com/maxmilton/harvest-errors/releases>
 1. Open <chrome://extensions>
 1. Enable developer mode
 1. Depending on your OS:
