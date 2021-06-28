@@ -2,18 +2,18 @@ import type * as TrackX from 'trackx';
 
 declare global {
   // added using inject script element technique + process.env.TRACKX_CLIENT_JS
-  var trackx: typeof TrackX; // eslint-disable-line no-var, vars-on-top
+  var __trackx: typeof TrackX; // eslint-disable-line
 }
 
 const init = () => {
-  trackx.setup('https://api.trackx.app/v1/pxdfcbscygy/event');
-  trackx.meta._agent = 'harvest-errors';
-  trackx.meta._ctx = 'content';
-  trackx.meta._release = process.env.APP_RELEASE;
-  trackx.meta.top_url = window.top.location.href;
+  __trackx.setup('https://api.trackx.app/v1/pxdfcbscygy/event');
+  __trackx.meta._agent = 'harvest-errors';
+  __trackx.meta._ctx = 'content';
+  __trackx.meta._release = process.env.APP_RELEASE;
+  __trackx.meta.top_url = window.top.location.href;
 
   if (process.env.NODE_ENV !== 'production') {
-    trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
+    __trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
   }
 };
 

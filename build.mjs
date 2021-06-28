@@ -15,6 +15,8 @@ const dir = path.resolve(); // no __dirname in node ESM
 
 const trackxClientJs = fs
   .readFileSync(require.resolve('trackx'), 'utf8')
+  // rename global namespace to prevent overriding an app's trackx instance
+  .replace('var trackx=', 'var __trackx=')
   .replace('\n//# sourceMappingURL=index.js.map\n', '');
 
 /** @param {Error|null} err */
