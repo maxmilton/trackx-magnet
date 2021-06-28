@@ -30,7 +30,7 @@ esbuild
     entryPoints: ['src/content.ts'],
     outfile: 'dist/content.js',
     platform: 'browser',
-    target: ['chrome88'],
+    target: ['chrome91'],
     define: {
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
@@ -49,7 +49,7 @@ esbuild
     entryPoints: ['src/background.ts'],
     outfile: 'dist/background.js',
     platform: 'browser',
-    target: ['chrome88'],
+    target: ['chrome91'],
     define: {
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
