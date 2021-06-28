@@ -1,6 +1,6 @@
 [![ci](https://github.com/maxmilton/harvest-errors/actions/workflows/ci.yml/badge.svg)](https://github.com/maxmilton/harvest-errors/actions/workflows/ci.yml)
 
-# harvest-errors
+# harvest-errors ![](./static/icon48.png)
 
 Browser extension which injects the [trackx client](https://github.com/maxmilton/trackx/tree/master/packages/client) into all web pages and collects errors. Useful to collect error samples for TrackX development.
 
