@@ -7,8 +7,9 @@ declare global {
 
 const init = () => {
   trackx.setup('https://api.trackx.app/v1/pxdfcbscygy/event');
-  trackx.meta.release = process.env.APP_RELEASE;
-  trackx.meta.agent = 'harvest-errors';
+  trackx.meta._agent = 'harvest-errors';
+  trackx.meta._ctx = 'content';
+  trackx.meta._release = process.env.APP_RELEASE;
   trackx.meta.top_url = window.top.location.href;
 
   if (process.env.NODE_ENV !== 'production') {

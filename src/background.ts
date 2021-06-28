@@ -14,8 +14,9 @@ trackx.setup(
     ? null
     : data),
 );
-trackx.meta.release = process.env.APP_RELEASE;
-trackx.meta.agent = 'harvest-errors';
+trackx.meta._agent = 'harvest-errors';
+trackx.meta._ctx = 'background';
+trackx.meta._release = process.env.APP_RELEASE;
 
 if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
@@ -26,7 +27,7 @@ chrome.webRequest.onErrorOccurred.addListener(
     new Error(event.error),
     {
       ...event,
-      _from: 'webRequest',
+      _ctx: 'webrequest',
     },
     true,
   ),

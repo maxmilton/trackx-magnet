@@ -24,6 +24,7 @@ module.exports = {
     'import/extensions': WARN,
     'import/prefer-default-export': OFF,
     'no-restricted-syntax': OFF,
+    'no-underscore-dangle': OFF,
     'no-void': OFF,
     'unicorn/filename-case': OFF,
     'unicorn/no-abusive-eslint-disable': WARN,
