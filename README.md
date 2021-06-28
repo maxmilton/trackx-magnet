@@ -17,9 +17,9 @@ Verified testers can install directly from the Chrome Web Store:
 1. Download the latest release's `.zip` file from <https://github.com/maxmilton/harvest-errors/releases>
 1. Open <chrome://extensions>
 1. Enable developer mode
-1. Depending on your browser:
-   1. Chrome: Drag .zip file into the page
-   1. Brave: Unzip then click "load unpacked" button and select the directory
+1. Depending on your OS:
+   1. Windows/macOS: Drag .zip file into the page
+   1. Linux: Unzip then click "load unpacked" button and select the directory
 
 ## Browser support
 
