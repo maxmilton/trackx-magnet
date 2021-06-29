@@ -10,6 +10,7 @@ const init = () => {
   __trackx.meta._agent = 'harvest-errors';
   __trackx.meta._ctx = 'content';
   __trackx.meta._release = process.env.APP_RELEASE;
+  // note `window.top` will be undefined when in a cross-origin iframe due to browser security
   __trackx.meta.top_url = window.top.location.href;
 
   if (process.env.NODE_ENV !== 'production') {
