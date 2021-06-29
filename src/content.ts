@@ -18,6 +18,8 @@ const init = () => {
   }
 };
 
+// because extension content scripts run in isolated worlds, inject a script tag
+// to execute trackx code in the actual page context
 const script = document.createElement('script');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 script.textContent = `${process.env.TRACKX_CLIENT_JS!};(${init.toString()})()`;
