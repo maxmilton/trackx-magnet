@@ -41,8 +41,11 @@ chrome.webRequest.onErrorOccurred.addListener(
         {
           _ctx: 'webrequest',
           ...event,
+          tab_pending_url: tab.pendingUrl,
           tab_url: tab.url,
           tab_title: tab.title,
+          tab_active: tab.active,
+          tab_highlighted: tab.highlighted,
         },
         true,
       );
