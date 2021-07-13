@@ -15,7 +15,7 @@ const manifest = {
   version: pkg.version,
   version_name: process.env.GITHUB_REF
     ? process.env.GITHUB_REF.replace('refs/tags/', '')
-    : gitRef(),
+    : gitRef().replace(/^v/, ''),
   icons: {
     16: 'icon16.png',
     48: 'icon48.png',
