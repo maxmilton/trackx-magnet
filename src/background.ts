@@ -28,6 +28,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 chrome.webRequest.onErrorOccurred.addListener(
   (event) => {
+    // @ts-expect-error - tab may be undefined when no matching tab id
     chrome.tabs.get(event.tabId, (tab = {}) => {
       const error = chrome.runtime.lastError;
       if (error?.message?.startsWith('No tab with id') === false) {
