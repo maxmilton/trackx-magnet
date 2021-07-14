@@ -28,28 +28,39 @@ if (process.env.NODE_ENV !== 'production') {
 
 chrome.webRequest.onErrorOccurred.addListener(
   (event) => {
-    // @ts-expect-error - tab may be undefined when no matching tab id
-    chrome.tabs.get(event.tabId, (tab = {}) => {
-      const error = chrome.runtime.lastError;
-      if (error?.message?.startsWith('No tab with id') === false) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-      }
-
+    if (event.tabId === -1) {
       trackx.sendEvent(
         new Error(event.error),
         {
           _ctx: 'webrequest',
           ...event,
-          tab_pending_url: tab.pendingUrl,
-          tab_url: tab.url,
-          tab_title: tab.title,
-          tab_active: tab.active,
-          tab_highlighted: tab.highlighted,
         },
         true,
       );
-    });
+    } else {
+      // @ts-expect-error - tab may be undefined when no matching tab id
+      chrome.tabs.get(event.tabId, (tab = {}) => {
+        const error = chrome.runtime.lastError;
+        if (error?.message?.startsWith('No tab with id') === false) {
+          // eslint-disable-next-line no-console
+          console.error(error);
+        }
+
+        trackx.sendEvent(
+          new Error(event.error),
+          {
+            _ctx: 'webrequest',
+            ...event,
+            tab_pending_url: tab.pendingUrl,
+            tab_url: tab.url,
+            tab_title: tab.title,
+            tab_active: tab.active,
+            tab_highlighted: tab.highlighted,
+          },
+          true,
+        );
+      });
+    }
   },
   {
     urls: ['<all_urls>'],
