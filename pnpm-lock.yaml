@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@types/chrome': 0.0.146
+  '@types/chrome': 0.0.147
   '@types/node': 16.3.2
   '@typescript-eslint/eslint-plugin': 4.28.3
   '@typescript-eslint/parser': 4.28.3
@@ -26,7 +26,7 @@ dependencies:
   trackx: 0.0.13
 
 devDependencies:
-  '@types/chrome': 0.0.146
+  '@types/chrome': 0.0.147
   '@types/node': 16.3.2
   '@typescript-eslint/eslint-plugin': 4.28.3_8da3816a7c3fb8ebc9f4c4b3e4b2e38f
   '@typescript-eslint/parser': 4.28.3_eslint@7.30.0+typescript@4.3.5
@@ -361,8 +361,8 @@ packages:
       fastq: 1.11.1
     dev: true
 
-  /@types/chrome/0.0.146:
-    resolution: {integrity: sha512-gghzXAVEGCWzo6ygME/sFAuU/PFNI8peDft3Eu8AA0GWHi2minRzB+uA2bGGJQYubdtt/qgPdXvZ45KThbGfSA==}
+  /@types/chrome/0.0.147:
+    resolution: {integrity: sha512-HR9GdW3Waz+XC8xdPapv3RdSBvoJ1692cFLNnJ1kygEXeVy24aUw7zx4r5wC9JKepwy9SehI+8bNhQo0qDW6ew==}
     dependencies:
       '@types/filesystem': 0.0.32
       '@types/har-format': 1.2.7
