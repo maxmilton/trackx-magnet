@@ -11,7 +11,7 @@ const pkg = require('./package.json');
 const manifest = {
   manifest_version: 2, // v3 restricts injecting JS so we need v2
   name: 'TrackX Harvester',
-  description: 'Collect errors from web pages with the trackx client.',
+  description: 'Collect error samples from web pages using the trackx client.',
   version: pkg.version,
   version_name: process.env.GITHUB_REF
     ? process.env.GITHUB_REF.replace('refs/tags/', '')
