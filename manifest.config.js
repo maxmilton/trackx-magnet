@@ -10,7 +10,7 @@ const pkg = require('./package.json');
 /** @type {chrome.runtime.Manifest} */
 const manifest = {
   manifest_version: 2, // v3 restricts injecting JS so we need v2
-  name: 'Harvest Errors',
+  name: 'TrackX Harvester',
   description: 'Collect errors from web pages with the trackx client.',
   version: pkg.version,
   version_name: process.env.GITHUB_REF
