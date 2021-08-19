@@ -12,7 +12,7 @@ const init = () => {
   // eslint-disable-next-line no-console
   const oldConsoleError = console.error;
 
-  __trackx.setup('https://api.trackx.app/v1/pxdfcbscygy/event');
+  __trackx.setup(process.env.TRACKX_API_REPORT_ENDPOINT!);
   __trackx.meta._agent = 'harvest-errors';
   __trackx.meta._release = process.env.APP_RELEASE;
   __trackx.meta._ctx = 'content';
@@ -37,13 +37,19 @@ const init = () => {
       if (tab) {
         __trackx.meta.tab_url = tab.url;
         __trackx.meta.tab_title = tab.title;
+
+        void fetch(process.env.TRACKX_API_PING_ENDPOINT!, {
+          method: 'GET',
+          cache: 'no-cache',
+          referrerPolicy: 'unsafe-url',
+        });
       } else {
         // kill trackx; remove its triggers and restore original values
 
         // NOTE: It's possible for an error to get through before this point
-        // but there's no way to check the tab url and title against the block
-        // list syncrounously without adding the block list in the content
-        // script (which is something we definately want to avoid) or pausing
+        // but there's no way to check the tab URL and title against the block
+        // list synchronously without adding the block list in the content
+        // script (which is something we definitely want to avoid) or pausing
         // the page JS execution (which would be a horrible UX).
 
         window.onerror = oldOnerror;

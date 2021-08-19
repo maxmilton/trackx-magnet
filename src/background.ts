@@ -4,7 +4,7 @@ import blocklist from './blocklist.json';
 const reBlockList = new RegExp(blocklist.join('|'), 'i');
 
 trackx.setup(
-  'https://api.trackx.app/v1/pxdfcbscygy/event',
+  process.env.TRACKX_API_REPORT_ENDPOINT!,
   // prevent sending reports with data that match words from the block list
   (data) => (reBlockList.test(
     [
@@ -25,6 +25,12 @@ trackx.meta._ctx = 'background';
 if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
 }
+
+void fetch(process.env.TRACKX_API_PING_ENDPOINT!, {
+  method: 'GET',
+  cache: 'no-cache',
+  referrerPolicy: 'unsafe-url',
+});
 
 chrome.webRequest.onErrorOccurred.addListener(
   (event) => {

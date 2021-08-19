@@ -13,6 +13,9 @@ const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const dir = path.resolve(); // no __dirname in node ESM
 
+const TRACKX_API_REPORT_ENDPOINT = 'https://api.trackx.app/v1/pxdfcbscygy/event';
+const TRACKX_API_PING_ENDPOINT = 'https://api.trackx.app/v1/pxdfcbscygy/ping';
+
 const trackxClientJs = fs
   .readFileSync(require.resolve('trackx'), 'utf8')
   // rename global namespace to prevent overriding an app's trackx instance
@@ -35,6 +38,12 @@ esbuild
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
       'process.env.TRACKX_CLIENT_JS': JSON.stringify(trackxClientJs),
+      'process.env.TRACKX_API_PING_ENDPOINT': JSON.stringify(
+        TRACKX_API_PING_ENDPOINT,
+      ),
+      'process.env.TRACKX_API_REPORT_ENDPOINT': JSON.stringify(
+        TRACKX_API_REPORT_ENDPOINT,
+      ),
     },
     bundle: true,
     minify: !dev,
@@ -53,6 +62,12 @@ esbuild
     define: {
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
+      'process.env.TRACKX_API_PING_ENDPOINT': JSON.stringify(
+        TRACKX_API_PING_ENDPOINT,
+      ),
+      'process.env.TRACKX_API_REPORT_ENDPOINT': JSON.stringify(
+        TRACKX_API_REPORT_ENDPOINT,
+      ),
     },
     banner: { js: '"use strict";' },
     bundle: true,
