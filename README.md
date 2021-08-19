@@ -1,20 +1,20 @@
-[![ci](https://github.com/maxmilton/harvest-errors/actions/workflows/ci.yml/badge.svg)](https://github.com/maxmilton/harvest-errors/actions/workflows/ci.yml)
+[![ci](https://github.com/maxmilton/trackx-harvester/actions/workflows/ci.yml/badge.svg)](https://github.com/maxmilton/trackx-harvester/actions/workflows/ci.yml)
 
-# harvest-errors ![](./static/icon48.png)
+# trackx-harvester ![](./static/icon48.png)
 
-Browser extension which injects the [trackx client](https://github.com/maxmilton/trackx/tree/master/packages/client) into all web pages and collects errors. Useful to collect error samples for TrackX development.
+Browser extension to collect error and ping data samples for [TrackX](https://github.com/maxmilton/trackx) development. The extension injects the [trackx client](https://github.com/maxmilton/trackx/tree/master/packages/client) into all web visited pages, except those with a URL or title which match a word in a curated block list (for user privacy).
 
-Event reports are sent automatically and can be viewed at <https://dash.trackx.app/projects/harvest-errors>.
+Event reports can be viewed at <https://dash.trackx.app/projects/trackx-harvester>.
 
 ## How to install
 
 Verified testers can install directly from the Chrome Web Store:
 
-[![Add to Chrome](https://storage.googleapis.com/chrome-gcs-uploader.appspot.com/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/mPGKYBIR2uCP0ApchDXE.png)](https://chrome.google.com/webstore/detail/harvest-errors/nmdlenjlhfgjbmljgopgmigoljgmnpae)
+[![Add to Chrome](https://storage.googleapis.com/chrome-gcs-uploader.appspot.com/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/mPGKYBIR2uCP0ApchDXE.png)](https://chrome.google.com/webstore/detail/trackx-harvester/nmdlenjlhfgjbmljgopgmigoljgmnpae)
 
 ### Manual local install
 
-1. Download the latest release's `chrome-extension.zip` file from <https://github.com/maxmilton/harvest-errors/releases>
+1. Download the latest release's `chrome-extension.zip` file from <https://github.com/maxmilton/trackx-harvester/releases>
 1. Open <chrome://extensions>
 1. Enable developer mode
 1. Depending on your OS:
@@ -27,17 +27,7 @@ Up-to-date versions of Google Chrome and other Chromium based browsers (e.g. Bra
 
 ## Bugs
 
-Please report any bugs you encounter on the [GitHub issue tracker](https://github.com/maxmilton/harvest-errors/issues).
-
-## References
-
-- <https://github.com/barbushin/javascript-errors-notifier>
-
-## TODO
-
-- Create a basic settings UI + add storage permission
-- Add setting to customise the API endpoint e.g., for local development
-  - May be tricky to get settings data in content scripts because we need the script to init `trackx` ASAP to collect page load errors, however, the `chrome.storage` API is async
+Please report any bugs you encounter on the [GitHub issue tracker](https://github.com/maxmilton/trackx-harvester/issues).
 
 ## License
 

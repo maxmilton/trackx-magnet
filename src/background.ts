@@ -18,7 +18,7 @@ trackx.setup(
     ? null
     : data),
 );
-trackx.meta._agent = 'harvest-errors';
+trackx.meta._agent = 'trackx-harvester';
 trackx.meta._release = process.env.APP_RELEASE;
 trackx.meta._ctx = 'background';
 

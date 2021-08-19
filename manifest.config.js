@@ -48,7 +48,7 @@ const manifest = {
     "default-src 'self' https://api.trackx.app;"
     + 'report-uri https://api.trackx.app/v1/pxdfcbscygy/report;',
 
-  // https://chrome.google.com/webstore/detail/harvest-errors/nmdlenjlhfgjbmljgopgmigoljgmnpae
+  // https://chrome.google.com/webstore/detail/trackx-harvester/nmdlenjlhfgjbmljgopgmigoljgmnpae
   key: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr1dkiK1jFYwT+kh89LJlQ+0Bo5CYWS6+Ix+GgGKhBx9tVJ9WpDU2yaU1HA362z/hOvQOrj6I45nP652Dji8IiLhqKyirzpR1CSBOnLK0Z47yJAN08dM+p+kL1NuwYtZl4ycwtqclK5YYBaF/y8tAEJ//rxWqXo3E/hOhi+IqgnA3GydNnn0tMDG2ZdBgcp77P8k3OZJwseQ9TxLfe788MB8LR9E5Zlwl8mLyyEA8dr8HkRS2AaLlebgI/FKSbi6aDvp0K0L7xUJtbq8QwfS0Pvu2rBXhOeY8HmLaW9/Ya50tRI9CAq1/oRI6pbGh6N9EbMjeXlttjsbnKXYs2a+4WQIDAQAB',
 };
 

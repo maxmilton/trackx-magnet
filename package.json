@@ -1,8 +1,8 @@
 {
-  "name": "harvest-errors",
+  "name": "trackx-harvester",
   "version": "1.4.0",
   "description": "Browser extension to collect errors from web pages with the trackx client.",
-  "repository": "maxmilton/harvest-errors",
+  "repository": "maxmilton/trackx-harvester",
   "author": "Max Milton <max@happycode.ltd>",
   "license": "UNLICENSED",
   "private": true,

@@ -12,8 +12,7 @@ const init = () => {
   // eslint-disable-next-line no-console
   const oldConsoleError = console.error;
 
-  __trackx.setup(process.env.TRACKX_API_REPORT_ENDPOINT!);
-  __trackx.meta._agent = 'harvest-errors';
+  __trackx.meta._agent = 'trackx-harvester';
   __trackx.meta._release = process.env.APP_RELEASE;
   __trackx.meta._ctx = 'content';
   __trackx.meta.title = document.title;
