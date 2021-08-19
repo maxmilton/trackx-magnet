@@ -1,17 +1,18 @@
 import type * as TrackX from 'trackx';
 
 declare global {
-  // added using inject script element technique + process.env.TRACKX_CLIENT_JS
+  // Added using inject script element technique + process.env.TRACKX_CLIENT_JS
   var __trackx: typeof TrackX; // eslint-disable-line
 }
 
 const init = () => {
-  // capture the values for things trackx overrides before setup
+  // Capture the values for things trackx overrides before setup
   const oldOnerror = window.onerror;
   const oldOnunhandledrejection = window.onunhandledrejection;
   // eslint-disable-next-line no-console
   const oldConsoleError = console.error;
 
+  __trackx.setup(`${process.env.API_BASE_URL!}/event`);
   __trackx.meta._agent = 'trackx-harvester';
   __trackx.meta._release = process.env.APP_RELEASE;
   __trackx.meta._ctx = 'content';
@@ -37,13 +38,12 @@ const init = () => {
         __trackx.meta.tab_url = tab.url;
         __trackx.meta.tab_title = tab.title;
 
-        void fetch(process.env.TRACKX_API_PING_ENDPOINT!, {
-          method: 'GET',
+        void fetch(`${process.env.API_BASE_URL!}/ping`, {
+          method: 'POST',
           cache: 'no-cache',
-          referrerPolicy: 'unsafe-url',
         });
       } else {
-        // kill trackx; remove its triggers and restore original values
+        // Kill trackx; remove its triggers and restore original values
 
         // NOTE: It's possible for an error to get through before this point
         // but there's no way to check the tab URL and title against the block
@@ -64,15 +64,16 @@ const init = () => {
   window.addEventListener('message', handleMessage);
 };
 
-// because extension content scripts run in isolated worlds, inject a script tag
+// Because extension content scripts run in isolated worlds, inject a script tag
 // to execute trackx code in the actual page context
+//  ↳ Inspired by https://github.com/barbushin/javascript-errors-notifier/blob/7d2fe60f9c44676706eaba6b44ce3e9a0beb949d/content.js#L170-L173
 const script = document.createElement('script');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 script.textContent = `${process.env.TRACKX_CLIENT_JS!};(${init.toString()})()`;
-(document.head || document.documentElement).appendChild(script);
+document.documentElement.appendChild(script);
 script.remove();
 
-// since content scripts can't use the chrome.tabs API, we need to get tab data
+// Since content scripts can't use the chrome.tabs API, we need to get tab data
 // from the background script and then send it to the real page via postMessage
 // because the page and content script are considered cross-origin
 chrome.runtime.sendMessage('tab', (tab: chrome.tabs.Tab | undefined) => {

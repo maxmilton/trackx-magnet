@@ -13,8 +13,12 @@ const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const dir = path.resolve(); // no __dirname in node ESM
 
-const TRACKX_API_REPORT_ENDPOINT = 'https://api.trackx.app/v1/pxdfcbscygy/event';
-const TRACKX_API_PING_ENDPOINT = 'https://api.trackx.app/v1/pxdfcbscygy/ping';
+// TODO: Allow customising this at runtime so users don't need to run a build
+// when they want to change the API endpoint
+//  ↳ May be tricky to get settings data in content scripts because we need the
+//    script to init `trackx` ASAP to collect page load errors, however, the
+//    `chrome.storage` API is async
+const API_BASE_URL = process.env.API_BASE_URL || 'https://api.trackx.app/v1/pxdfcbscygy';
 
 const trackxClientJs = fs
   .readFileSync(require.resolve('trackx'), 'utf8')
@@ -35,15 +39,10 @@ esbuild
     platform: 'browser',
     target: ['chrome91'],
     define: {
+      'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
       'process.env.TRACKX_CLIENT_JS': JSON.stringify(trackxClientJs),
-      'process.env.TRACKX_API_PING_ENDPOINT': JSON.stringify(
-        TRACKX_API_PING_ENDPOINT,
-      ),
-      'process.env.TRACKX_API_REPORT_ENDPOINT': JSON.stringify(
-        TRACKX_API_REPORT_ENDPOINT,
-      ),
     },
     bundle: true,
     minify: !dev,
@@ -60,14 +59,9 @@ esbuild
     platform: 'browser',
     target: ['chrome91'],
     define: {
+      'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
-      'process.env.TRACKX_API_PING_ENDPOINT': JSON.stringify(
-        TRACKX_API_PING_ENDPOINT,
-      ),
-      'process.env.TRACKX_API_REPORT_ENDPOINT': JSON.stringify(
-        TRACKX_API_REPORT_ENDPOINT,
-      ),
     },
     banner: { js: '"use strict";' },
     bundle: true,

@@ -4,8 +4,8 @@ import blocklist from './blocklist.json';
 const reBlockList = new RegExp(blocklist.join('|'), 'i');
 
 trackx.setup(
-  process.env.TRACKX_API_REPORT_ENDPOINT!,
-  // prevent sending reports with data that match words from the block list
+  `${process.env.API_BASE_URL!}/event`,
+  // Prevent sending reports with data that match words from the block list
   (data) => (reBlockList.test(
     [
       data.url,
@@ -26,10 +26,9 @@ if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
 }
 
-void fetch(process.env.TRACKX_API_PING_ENDPOINT!, {
-  method: 'GET',
+void fetch(`${process.env.API_BASE_URL!}/ping`, {
+  method: 'POST',
   cache: 'no-cache',
-  referrerPolicy: 'unsafe-url',
 });
 
 chrome.webRequest.onErrorOccurred.addListener(
@@ -76,7 +75,7 @@ chrome.webRequest.onErrorOccurred.addListener(
 chrome.runtime.onMessage.addListener((req, { tab }, reply) => {
   if (req === 'tab' && tab) {
     if (reBlockList.test(`${tab.url!}-${tab.title!}`)) {
-      // empty response when tab data matches a word on the block list
+      // Empty response when tab data matches a word on the block list
       reply();
     } else {
       reply(tab);
