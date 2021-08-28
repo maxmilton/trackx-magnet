@@ -31,9 +31,9 @@ Please report any bugs you encounter on the [GitHub issue tracker](https://githu
 
 ## License
 
-Private; closed source. For internal use only.
+MIT license. See [LICENSE](https://github.com/maxmilton/trackx-harvester/blob/master/LICENSE).
 
-The extension's [magnet icon](https://github.com/twitter/twemoji/blob/master/assets/svg/1f9f2.svg) is from [twitter/twemoji](https://github.com/twitter/twemoji) which is licensed CC-BY 4.0.
+The [magnet icon](https://github.com/twitter/twemoji/blob/master/assets/svg/1f9f2.svg) is from [twitter/twemoji](https://github.com/twitter/twemoji) which is licensed CC-BY 4.0.
 
 ---
 
