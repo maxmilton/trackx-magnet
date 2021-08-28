@@ -19,12 +19,12 @@ specifiers:
   prettier-plugin-pkg: 0.10.0
   prettier-plugin-sh: 0.7.1
   terser: 5.7.2
-  trackx: 0.0.14
+  trackx: 0.0.15
   typescript: 4.4.2
   uvu: 0.5.1
 
 dependencies:
-  trackx: 0.0.14
+  trackx: 0.0.15
 
 devDependencies:
   '@types/chrome': 0.0.154
@@ -2314,8 +2314,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /trackx/0.0.14:
-    resolution: {integrity: sha512-xI3ftl53ulC1nAa9R4pYavM6pNgb4kqUQCH03c4NBsBo2wseXP4ezhVrGUfU2v2ejzvz5r9LyhtZu0glziTXIg==}
+  /trackx/0.0.15:
+    resolution: {integrity: sha512-jKcqn6zmxxhq1yK2TV+7XFsXJdc4iUst2/WS3EJQoREaC5uz3CJUUo0JTnsd4HaLBG/2xqY4l0GrLs8dSCe+CQ==}
     dependencies:
       '@ungap/global-this': 0.4.4
       uid: 2.0.0
