@@ -26,10 +26,13 @@ if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
 }
 
-void fetch(`${process.env.API_BASE_URL!}/ping`, {
-  method: 'POST',
-  cache: 'no-cache',
-});
+void fetch(
+  `${process.env.API_BASE_URL!}/ping?sid=${sessionStorage.t__x as string}`,
+  {
+    method: 'POST',
+    cache: 'no-cache',
+  },
+);
 
 chrome.webRequest.onErrorOccurred.addListener(
   (event) => {

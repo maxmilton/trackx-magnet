@@ -38,10 +38,15 @@ const init = () => {
         __trackx.meta.tab_url = tab.url;
         __trackx.meta.tab_title = tab.title;
 
-        void fetch(`${process.env.API_BASE_URL!}/ping`, {
-          method: 'POST',
-          cache: 'no-cache',
-        });
+        void fetch(
+          `${process.env.API_BASE_URL!}/ping?sid=${
+            sessionStorage.t__x as string
+          }`,
+          {
+            method: 'POST',
+            cache: 'no-cache',
+          },
+        );
       } else {
         // Kill trackx; remove its triggers and restore original values
 

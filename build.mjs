@@ -66,6 +66,7 @@ esbuild
     banner: { js: '"use strict";' },
     bundle: true,
     minify: !dev,
+    legalComments: 'external',
     watch: dev,
     logLevel: 'debug',
   })
