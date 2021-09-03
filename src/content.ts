@@ -44,6 +44,8 @@ const init = () => {
           }`,
           {
             method: 'POST',
+            mode: 'no-cors',
+            credentials: 'omit',
             keepalive: true,
           },
         );
