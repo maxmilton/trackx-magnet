@@ -30,7 +30,7 @@ void fetch(
   `${process.env.API_BASE_URL!}/ping?sid=${sessionStorage.t__x as string}`,
   {
     method: 'POST',
-    cache: 'no-cache',
+    keepalive: true,
   },
 );
 
