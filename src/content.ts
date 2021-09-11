@@ -38,17 +38,17 @@ const init = () => {
         __trackx.meta.tab_url = tab.url;
         __trackx.meta.tab_title = tab.title;
 
-        void fetch(
-          `${process.env.API_BASE_URL!}/ping?sid=${
-            sessionStorage.t__x as string
-          }`,
-          {
-            method: 'POST',
-            mode: 'no-cors',
-            credentials: 'omit',
-            keepalive: true,
-          },
-        );
+        // XXX: By default the trackx client uses an Image + setting its src in
+        // order to send the ping which is great for general purpouse use but
+        // it is blocking; instead here we use fetch + keepalive which yeilds a
+        // similar result but is async so it shouldn't slow down extension
+        // users web browsing at all
+        void fetch(`${process.env.API_BASE_URL!}/ping?sid=${__trackx.sid}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          credentials: 'omit',
+          keepalive: true,
+        });
       } else {
         // Kill trackx; remove its triggers and restore original values
 
