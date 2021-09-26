@@ -17,15 +17,15 @@
     "zip": "sh -c 'test -z \"$(git status --porcelain)\"' && pnpm run lint && pnpm run test && pnpm run build && cd dist && zip ../chrome-extension.zip *"
   },
   "dependencies": {
-    "trackx": "0.0.18"
+    "trackx": "0.0.19"
   },
   "devDependencies": {
-    "@types/chrome": "0.0.157",
-    "@types/node": "16.9.6",
+    "@types/chrome": "0.0.158",
+    "@types/node": "16.10.1",
     "@typescript-eslint/eslint-plugin": "4.31.2",
     "@typescript-eslint/parser": "4.31.2",
     "c8": "7.9.0",
-    "esbuild": "0.13.1",
+    "esbuild": "0.13.2",
     "esbuild-register": "3.0.0",
     "eslint": "7.32.0",
     "eslint-config-airbnb-base": "14.2.1",
