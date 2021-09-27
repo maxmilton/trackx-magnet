@@ -15,12 +15,12 @@ specifiers:
   eslint-plugin-unicorn: 36.0.0
   git-ref: 0.2.0
   prettier: 2.4.1
-  trackx: 0.0.19
+  trackx: 0.0.21
   typescript: 4.4.3
   uvu: 0.5.1
 
 dependencies:
-  trackx: 0.0.19
+  trackx: 0.0.21
 
 devDependencies:
   '@types/chrome': 0.0.158
@@ -467,7 +467,7 @@ packages:
       '@typescript-eslint/visitor-keys': 4.31.2
       debug: 4.3.2
       globby: 11.0.4
-      is-glob: 4.0.1
+      is-glob: 4.0.2
       semver: 7.3.5
       tsutils: 3.21.0_typescript@4.4.3
       typescript: 4.4.3
@@ -1191,7 +1191,7 @@ packages:
       ignore: 4.0.6
       import-fresh: 3.3.0
       imurmurhash: 0.1.4
-      is-glob: 4.0.1
+      is-glob: 4.0.2
       js-yaml: 3.14.1
       json-stable-stringify-without-jsonify: 1.0.1
       levn: 0.4.1
@@ -1387,7 +1387,7 @@ packages:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
     dependencies:
-      is-glob: 4.0.1
+      is-glob: 4.0.2
     dev: true
 
   /glob/7.2.0:
@@ -1566,8 +1566,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /is-glob/4.0.1:
-    resolution: {integrity: sha512-5G0tKtBTFImOqDnLB2hG6Bp2qcKEFduo4tZu9MT/H6NQv/ghhy30o55ufafxJ/LdH79LLs2Kfrn85TLKyA7BUg==}
+  /is-glob/4.0.2:
+    resolution: {integrity: sha512-ZZTOjRcDjuAAAv2cTBQP/lL59ZTArx77+7UzHdWW/XB1mrfp7DEaVpKmZ0XIzx+M7AxfhKcqV+nMetUQmFifwg==}
     engines: {node: '>=0.10.0'}
     dependencies:
       is-extglob: 2.1.1
@@ -2352,8 +2352,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /trackx/0.0.19:
-    resolution: {integrity: sha512-ySBrXLYM4iLC5Ejhl50n828D6q9JLx4RIHXDpFBxOwMBjIbHzsk3O/grqLlz+x7pZL5Tl4+9vj6Q6rFzxzu0Wg==}
+  /trackx/0.0.21:
+    resolution: {integrity: sha512-MmVG2AJPFp0gKjOG9o5Xqe+88cxusfoLfAG/Cz12laYe0TuNxfkzEFVg3sohxeFYSB8/7naFvprA0pMJuqVQjA==}
     dependencies:
       '@ungap/global-this': 0.4.4
     dev: false
