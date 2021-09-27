@@ -17,6 +17,8 @@ const init = () => {
   __trackx.meta._release = process.env.APP_RELEASE;
   __trackx.meta._ctx = 'content';
   __trackx.meta.title = document.title;
+  __trackx.meta.referrer = document.referrer;
+  __trackx.meta.width = window.innerWidth;
 
   // window.top may be undefined in cross-origin frames due to browser security
   __trackx.meta.top_url = window.top?.location.href;
