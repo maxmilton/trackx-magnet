@@ -15,12 +15,12 @@ specifiers:
   eslint-plugin-unicorn: 36.0.0
   git-ref: 0.2.0
   prettier: 2.4.1
-  trackx: 0.0.21
+  trackx: 0.0.22
   typescript: 4.4.3
   uvu: 0.5.1
 
 dependencies:
-  trackx: 0.0.21
+  trackx: 0.0.22
 
 devDependencies:
   '@types/chrome': 0.0.158
@@ -2352,8 +2352,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /trackx/0.0.21:
-    resolution: {integrity: sha512-MmVG2AJPFp0gKjOG9o5Xqe+88cxusfoLfAG/Cz12laYe0TuNxfkzEFVg3sohxeFYSB8/7naFvprA0pMJuqVQjA==}
+  /trackx/0.0.22:
+    resolution: {integrity: sha512-MS+91Wh/xeifiKjQLkIJRCW0mJa1iLHLzkDwK9pujHMuKpHfWW4z7KL+ghWiCvL0wxhq/Ja/LI4X2wWcufNM+w==}
     dependencies:
       '@ungap/global-this': 0.4.4
     dev: false
