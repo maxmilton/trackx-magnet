@@ -42,7 +42,7 @@ const init = () => {
 
         // XXX: By default the trackx client uses an Image + setting its src in
         // order to send the ping which is great for general purpouse use but
-        // it is blocking; instead here we use fetch + keepalive which yeilds a
+        // it is blocking; instead here we use fetch + keepalive which yields a
         // similar result but is async so it shouldn't slow down extension
         // users web browsing at all
         void fetch(`${process.env.API_BASE_URL!}/ping?sid=${__trackx.sid}`, {

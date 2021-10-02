@@ -67,6 +67,56 @@ const reBlockList = new RegExp(blocklist.join('|'), 'i');
 //   },
 // );
 
+// Modify CSP header if present to allow connecting to the TrackX API
+// https://github.com/GoogleChrome/chrome-extensions-samples/blob/e716678b67fd30a5876a552b9665e9f847d6d84b/mv2-archive/extensions/no_cookies/background.js
+chrome.webRequest.onHeadersReceived.addListener(
+  (details) => {
+    const headers = details.responseHeaders;
+
+    if (headers) {
+      for (const header of headers) {
+        if (header.name === 'content-security-policy') {
+          const val = header.value!;
+          const connectSrcIndex = val.indexOf('connect-src');
+          const defaultSrcIndex = val.indexOf('default-src');
+          const reportUriIndex = val.indexOf('report-uri');
+
+          if (connectSrcIndex !== -1) {
+            // add to existing connect-src directive
+            const nextSemiIndex = val.indexOf(';', connectSrcIndex);
+            header.value = `${val.slice(
+              0,
+              nextSemiIndex !== -1 ? nextSemiIndex : undefined,
+            )} https://api.trackx.app${
+              nextSemiIndex !== -1 ? val.slice(nextSemiIndex) : ''
+            }`;
+          } else if (defaultSrcIndex !== -1) {
+            // add to existing default-src directive
+            const nextSemiIndex = val.indexOf(';', defaultSrcIndex);
+            header.value = `${val.slice(
+              0,
+              nextSemiIndex !== -1 ? nextSemiIndex : undefined,
+            )} https://api.trackx.app${
+              nextSemiIndex !== -1 ? val.slice(nextSemiIndex) : ''
+            }`;
+          }
+
+          if (reportUriIndex === -1) {
+            // add new report-uri directive
+            header.value += `;report-uri ${process.env.API_BASE_URL!}/report`;
+          }
+
+          break;
+        }
+      }
+    }
+
+    return { responseHeaders: details.responseHeaders };
+  },
+  { urls: ['<all_urls>'] },
+  ['blocking', 'responseHeaders', 'extraHeaders'],
+);
+
 chrome.runtime.onMessage.addListener((req, { tab }, reply) => {
   if (req === 'tab' && tab) {
     if (reBlockList.test(`${tab.url!} ${tab.title!}`)) {

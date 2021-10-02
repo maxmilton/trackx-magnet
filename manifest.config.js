@@ -27,6 +27,7 @@ const manifest = {
     'tabs',
     // https://developer.chrome.com/docs/extensions/reference/webRequest/
     'webRequest',
+    'webRequestBlocking',
   ],
   background: {
     // persistence required to use the chrome.webRequest API
