@@ -15,12 +15,12 @@ specifiers:
   eslint-plugin-unicorn: 36.0.0
   git-ref: 0.2.0
   prettier: 2.4.1
-  trackx: 0.0.23
+  trackx: 0.0.24
   typescript: 4.4.3
   uvu: 0.5.1
 
 dependencies:
-  trackx: 0.0.23
+  trackx: 0.0.24
 
 devDependencies:
   '@types/chrome': 0.0.158
@@ -566,8 +566,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /array.prototype.flat/1.2.4:
-    resolution: {integrity: sha512-4470Xi3GAPAjZqFcljX2xzckv1qeKPizoNkiS0+O4IoPR2ZNpcjE0pkhdihlDouK+x6QOast26B4Q/O9DJnwSg==}
+  /array.prototype.flat/1.2.5:
+    resolution: {integrity: sha512-KaYU+S+ndVqyUnignHftkwc58o3uVU1jzczILJ1tN2YaIZpFIKBiP/x/j97E5MVPsaCloPbqWLB/8qCTVvT2qg==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
@@ -604,7 +604,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001263
-      electron-to-chromium: 1.3.856
+      electron-to-chromium: 1.3.857
       escalade: 3.1.1
       nanocolors: 0.2.12
       node-releases: 1.1.76
@@ -796,8 +796,8 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /electron-to-chromium/1.3.856:
-    resolution: {integrity: sha512-lSezYIe1/p5qkEswAfaQUseOBiwGwuCvRl/MKzOEVe++DcmQ92+43dznDl4rFJ4Zpu+kevhwyIf7KjJevyDA/A==}
+  /electron-to-chromium/1.3.857:
+    resolution: {integrity: sha512-a5kIr2lajm4bJ5E4D3fp8Y/BRB0Dx2VOcCRE5Gtb679mXIME/OFhWler8Gy2ksrf8gFX+EFCSIGA33FB3gqYpg==}
     dev: true
 
   /emoji-regex/8.0.0:
@@ -1073,7 +1073,7 @@ packages:
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0
     dependencies:
       array-includes: 3.1.3
-      array.prototype.flat: 1.2.4
+      array.prototype.flat: 1.2.5
       debug: 2.6.9
       doctrine: 2.1.0
       eslint: 7.32.0
@@ -2363,8 +2363,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /trackx/0.0.23:
-    resolution: {integrity: sha512-s7yq0u3PFdAt65h0cp58VpSzebwsQC15hadXw1wqtrjFTIC5OOMXjMWL0xeedRNxZWJ3y26RJz6O5NqLTQyhpA==}
+  /trackx/0.0.24:
+    resolution: {integrity: sha512-O5skIlWtR4x2M1zLzdqsgMzQHSV4mM+h8hbY3qz7zjde2+yQCILXAttzgDtYjAmNWHECa/ka8O/pYU8K2ZFH+Q==}
     dependencies:
       '@ungap/global-this': 0.4.4
     dev: false
