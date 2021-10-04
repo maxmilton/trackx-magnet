@@ -15,12 +15,12 @@ specifiers:
   eslint-plugin-unicorn: 36.0.0
   git-ref: 0.2.0
   prettier: 2.4.1
-  trackx: 0.0.24
+  trackx: 0.0.25
   typescript: 4.4.3
   uvu: 0.5.1
 
 dependencies:
-  trackx: 0.0.24
+  trackx: 0.0.25
 
 devDependencies:
   '@types/chrome': 0.0.158
@@ -556,7 +556,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.3
-      es-abstract: 1.19.0
+      es-abstract: 1.19.1
       get-intrinsic: 1.1.1
       is-string: 1.0.7
     dev: true
@@ -572,7 +572,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.3
-      es-abstract: 1.19.0
+      es-abstract: 1.19.1
     dev: true
 
   /astral-regex/2.0.0:
@@ -603,11 +603,11 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001263
+      caniuse-lite: 1.0.30001264
       electron-to-chromium: 1.3.857
       escalade: 3.1.1
       nanocolors: 0.2.12
-      node-releases: 1.1.76
+      node-releases: 1.1.77
     dev: true
 
   /builtin-modules/3.2.0:
@@ -646,8 +646,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /caniuse-lite/1.0.30001263:
-    resolution: {integrity: sha512-doiV5dft6yzWO1WwU19kt8Qz8R0/8DgEziz6/9n2FxUasteZNwNNYSmJO3GLBH8lCVE73AB1RPDPAeYbcO5Cvw==}
+  /caniuse-lite/1.0.30001264:
+    resolution: {integrity: sha512-Ftfqqfcs/ePiUmyaySsQ4PUsdcYyXG2rfoBVsk3iY1ahHaJEw65vfb7Suzqm+cEkwwPIv/XWkg27iCpRavH4zA==}
     dev: true
 
   /chalk/2.4.2:
@@ -817,8 +817,8 @@ packages:
       is-arrayish: 0.2.1
     dev: true
 
-  /es-abstract/1.19.0:
-    resolution: {integrity: sha512-oWPrF+7P1nGv/rw9oIInwdkmI1qediEJSvVfHFryBd8mWllCKB5tke3aKyf51J6chgyKmi6mODqdnin2yb88Nw==}
+  /es-abstract/1.19.1:
+    resolution: {integrity: sha512-2vJ6tjA/UfqLm2MPs7jxVybLoB8i1t1Jd9R3kISld20sIxPcTbLuggQOUxeWeAvIUkduv/CfMjuh4WmiXr2v9w==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
@@ -1038,7 +1038,7 @@ packages:
       eslint: 7.32.0
       eslint-plugin-import: 2.24.2_eslint@7.32.0
       object.assign: 4.1.2
-      object.entries: 1.1.4
+      object.entries: 1.1.5
     dev: true
 
   /eslint-config-airbnb-typescript/14.0.0_578da72e19327e4b7da4c07f2bd32b7c:
@@ -1083,7 +1083,7 @@ packages:
       has: 1.0.3
       is-core-module: 2.7.0
       minimatch: 3.0.4
-      object.values: 1.1.4
+      object.values: 1.1.5
       pkg-up: 2.0.0
       read-pkg-up: 3.0.0
       resolve: 1.20.0
@@ -1837,8 +1837,8 @@ packages:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
 
-  /node-releases/1.1.76:
-    resolution: {integrity: sha512-9/IECtNr8dXNmPWmFXepT0/7o5eolGesHUa3mtr0KlgnCvnZxwh2qensKL42JJY2vQKC3nIBXetFAqR+PW1CmA==}
+  /node-releases/1.1.77:
+    resolution: {integrity: sha512-rB1DUFUNAN4Gn9keO2K1efO35IDK7yKHCdCaIMvFO7yUYmmZYeDjnGKle26G4rwj+LKRQpjyUUvMkPglwGCYNQ==}
     dev: true
 
   /normalize-package-data/2.5.0:
@@ -1869,22 +1869,22 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /object.entries/1.1.4:
-    resolution: {integrity: sha512-h4LWKWE+wKQGhtMjZEBud7uLGhqyLwj8fpHOarZhD2uY3C9cRtk57VQ89ke3moByLXMedqs3XCHzyb4AmA2DjA==}
+  /object.entries/1.1.5:
+    resolution: {integrity: sha512-TyxmjUoZggd4OrrU1W66FMDG6CuqJxsFvymeyXI51+vQLN67zYfZseptRge703kKQdo4uccgAKebXFcRCzk4+g==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.3
-      es-abstract: 1.19.0
+      es-abstract: 1.19.1
     dev: true
 
-  /object.values/1.1.4:
-    resolution: {integrity: sha512-TnGo7j4XSnKQoK3MfvkzqKCi0nVe/D9I9IjwTNYdb/fxYHpjrluHVOgw0AF6jrRFGMPHdfuidR09tIDiIvnaSg==}
+  /object.values/1.1.5:
+    resolution: {integrity: sha512-QUZRW0ilQ3PnPpbNtgdNV1PDbEqLIiSFB3l+EnGtBQ/8SUTLj1PZwtQHABZtLgwpJZTSZhuGLOGk57Drx2IvYg==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.3
-      es-abstract: 1.19.0
+      es-abstract: 1.19.1
     dev: true
 
   /once/1.4.0:
@@ -2363,8 +2363,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /trackx/0.0.24:
-    resolution: {integrity: sha512-O5skIlWtR4x2M1zLzdqsgMzQHSV4mM+h8hbY3qz7zjde2+yQCILXAttzgDtYjAmNWHECa/ka8O/pYU8K2ZFH+Q==}
+  /trackx/0.0.25:
+    resolution: {integrity: sha512-ay+OgsvD2cJCaXYKYnurkXdAwWGMTsNkKc773kJfbk01M4i1Kx75nYQOWpGkhqFz1L3YHOvXrjVQrBQutIbE0Q==}
     dependencies:
       '@ungap/global-this': 0.4.4
     dev: false
