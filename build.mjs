@@ -1,3 +1,7 @@
+// TODO: Fix types and remove these lint exceptions once typescript-eslint can handle js/mjs
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable import/extensions, import/no-extraneous-dependencies */
 
 import esbuild from 'esbuild';
@@ -31,6 +35,18 @@ function handleErr(err) {
   if (err) throw err;
 }
 
+/**
+ * @param {esbuild.BuildResult} buildResult
+ * @returns {Promise<esbuild.BuildResult>}
+ */
+async function analyzeMeta(buildResult) {
+  if (buildResult.metafile) {
+    console.log(await esbuild.analyzeMetafile(buildResult.metafile));
+  }
+
+  return buildResult;
+}
+
 // Content script
 esbuild
   .build({
@@ -47,8 +63,10 @@ esbuild
     bundle: true,
     minify: !dev,
     watch: dev,
+    metafile: process.stdout.isTTY,
     logLevel: 'debug',
   })
+  .then(analyzeMeta)
   .catch(handleErr);
 
 // Background script
@@ -68,8 +86,10 @@ esbuild
     minify: !dev,
     legalComments: 'external',
     watch: dev,
+    metafile: process.stdout.isTTY,
     logLevel: 'debug',
   })
+  .then(analyzeMeta)
   .catch(handleErr);
 
 // Extension manifest
