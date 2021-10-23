@@ -27,20 +27,23 @@ const init = () => {
     __trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
   }
 
-  const handleMessage = ({ data, origin }: MessageEvent) => {
+  const handleMessage = ({
+    data,
+    origin,
+  }: MessageEvent<{ __tab?: chrome.tabs.Tab | undefined }>) => {
     if (
       origin === globalThis.location.origin
       && typeof data === 'object'
       && '__tab' in data
     ) {
-      const tab = (data as { __tab: chrome.tabs.Tab | undefined }).__tab;
+      const tab = data.__tab;
 
       if (tab) {
         __trackx.meta.tab_url = tab.url;
         __trackx.meta.tab_title = tab.title;
 
         // XXX: By default the trackx client uses an Image + setting its src in
-        // order to send the ping which is great for general purpouse use but
+        // order to send the ping which is great for general purpose use but
         // it is blocking; instead here we use fetch + keepalive which yields a
         // similar result but is async so it shouldn't slow down extension
         // users web browsing at all
