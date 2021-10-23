@@ -14,7 +14,7 @@ const manifest = {
   description: 'Collect error samples from web pages using the trackx client.',
   version: pkg.version,
   version_name: process.env.GITHUB_REF
-    ? process.env.GITHUB_REF.replace('refs/tags/', '')
+    ? process.env.GITHUB_REF.replace('refs/tags/v', '')
     : gitRef().replace(/^v/, ''),
   icons: {
     16: 'icon16.png',
