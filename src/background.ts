@@ -18,7 +18,7 @@ const reBlockList = new RegExp(blocklist.join('|'), 'i');
 //     ? null
 //     : data),
 // );
-// trackx.meta._agent = 'trackx-harvester';
+// trackx.meta._agent = 'trackx-magnet';
 // trackx.meta._release = process.env.APP_RELEASE;
 // trackx.meta._ctx = 'background';
 

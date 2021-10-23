@@ -13,7 +13,7 @@ const init = () => {
   const oldConsoleError = console.error;
 
   __trackx.setup(`${process.env.API_BASE_URL!}/event`);
-  __trackx.meta._agent = 'trackx-harvester';
+  __trackx.meta._agent = 'trackx-magnet';
   __trackx.meta._release = process.env.APP_RELEASE;
   __trackx.meta._ctx = 'content';
   __trackx.meta.title = document.title;

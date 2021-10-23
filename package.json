@@ -1,8 +1,8 @@
 {
-  "name": "trackx-harvester",
+  "name": "trackx-magnet",
   "version": "1.11.1",
   "description": "Browser extension to collect errors from web pages with the trackx client.",
-  "repository": "maxmilton/trackx-harvester",
+  "repository": "maxmilton/trackx-magnet",
   "author": "Max Milton <max@happycode.ltd>",
   "license": "MIT",
   "private": true,
