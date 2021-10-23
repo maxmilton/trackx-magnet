@@ -7,8 +7,8 @@ declare global {
 
 const init = () => {
   // Capture the values for things trackx overrides before setup
-  const oldOnerror = window.onerror;
-  const oldOnunhandledrejection = window.onunhandledrejection;
+  const oldOnerror = globalThis.onerror;
+  const oldOnunhandledrejection = globalThis.onunhandledrejection;
   // eslint-disable-next-line no-console
   const oldConsoleError = console.error;
 
@@ -20,9 +20,9 @@ const init = () => {
   __trackx.meta.referrer = document.referrer;
   __trackx.meta.width = window.innerWidth;
 
-  // window.top may be undefined in cross-origin frames due to browser security
-  __trackx.meta.top_url = window.top?.location.href;
-  __trackx.meta.top_title = window.top?.document.title;
+  // globalThis.top may be undefined in cross-origin frames due to browser security
+  __trackx.meta.top_url = globalThis.top?.location.href;
+  __trackx.meta.top_title = globalThis.top?.document.title;
 
   if (process.env.NODE_ENV !== 'production') {
     __trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
@@ -30,7 +30,7 @@ const init = () => {
 
   const handleMessage = ({ data, origin }: MessageEvent) => {
     if (
-      origin === window.location.origin
+      origin === globalThis.location.origin
       && typeof data === 'object'
       && '__tab' in data
     ) {
@@ -60,17 +60,17 @@ const init = () => {
         // script (which is something we definitely want to avoid) or pausing
         // the page JS execution (which would be a horrible UX).
 
-        window.onerror = oldOnerror;
-        window.onunhandledrejection = oldOnunhandledrejection;
+        globalThis.onerror = oldOnerror;
+        globalThis.onunhandledrejection = oldOnunhandledrejection;
         // eslint-disable-next-line no-console
         console.error = oldConsoleError;
       }
 
-      window.removeEventListener('message', handleMessage);
+      globalThis.removeEventListener('message', handleMessage);
     }
   };
 
-  window.addEventListener('message', handleMessage);
+  globalThis.addEventListener('message', handleMessage);
 };
 
 // Because extension content scripts run in isolated worlds, inject a script tag
@@ -86,5 +86,5 @@ script.remove();
 // from the background script and then send it to the real page via postMessage
 // because the page and content script are considered cross-origin
 chrome.runtime.sendMessage('tab', (tab: chrome.tabs.Tab | undefined) => {
-  window.postMessage({ __tab: tab }, window.location.origin);
+  globalThis.postMessage({ __tab: tab }, globalThis.location.origin);
 });
