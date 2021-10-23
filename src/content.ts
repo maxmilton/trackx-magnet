@@ -18,7 +18,6 @@ const init = () => {
   __trackx.meta._ctx = 'content';
   __trackx.meta.title = document.title;
   __trackx.meta.referrer = document.referrer;
-  __trackx.meta.width = window.innerWidth;
 
   // globalThis.top may be undefined in cross-origin frames due to browser security
   __trackx.meta.top_url = globalThis.top?.location.href;
