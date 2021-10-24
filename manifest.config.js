@@ -13,9 +13,7 @@ const manifest = {
   name: 'TrackX Magnet',
   description: 'Collect error samples from web pages using the trackx client.',
   version: pkg.version,
-  version_name: process.env.GITHUB_REF
-    ? process.env.GITHUB_REF.replace('refs/tags/v', '')
-    : gitRef().replace(/^v/, ''),
+  version_name: process.env.GITHUB_REF ? undefined : gitRef().replace(/^v/, ''),
   icons: {
     16: 'icon16.png',
     48: 'icon48.png',
@@ -37,9 +35,10 @@ const manifest = {
     },
   ],
   incognito: 'not_allowed', // give users some privacy
-  offline_enabled: true,
   content_security_policy:
-    "default-src 'self' https://api.trackx.app;"
+    "default-src 'none';"
+    + "script-src 'self';"
+    + 'connect-src https://api.trackx.app;'
     + 'report-uri https://api.trackx.app/v1/pxdfcbscygy/report;',
 
   // https://chrome.google.com/webstore/detail/trackx-magnet/nmdlenjlhfgjbmljgopgmigoljgmnpae
