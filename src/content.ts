@@ -23,6 +23,7 @@ const init = () => {
 
       // eslint-disable-next-line no-param-reassign
       payload.meta.details = details;
+      // @ts-expect-error - FIXME: TS 4.5 correctly knowns reason is not null, remove this comment
       // eslint-disable-next-line no-param-reassign
       payload.meta.ctor = reason.constructor?.name;
     }
