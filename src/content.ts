@@ -110,7 +110,7 @@ const init = () => {
 //  ↳ Inspired by https://github.com/barbushin/javascript-errors-notifier/blob/7d2fe60f9c44676706eaba6b44ce3e9a0beb949d/content.js#L170-L173
 const script = document.createElement('script');
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-script.textContent = `${process.env.TRACKX_CLIENT_JS!};(${init.toString()})()`;
+script.textContent = `${process.env.TRACKX_CLIENT_JS!}(${init.toString()})()`;
 document.documentElement.appendChild(script);
 script.remove();
 

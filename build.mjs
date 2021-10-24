@@ -28,7 +28,7 @@ const trackxClientJs = fs
   .readFileSync(require.resolve('trackx'), 'utf8')
   // rename global namespace to prevent overriding an app's trackx instance
   .replace('var trackx=', 'var __trackx=')
-  .replace('\n//# sourceMappingURL=index.js.map\n', '');
+  .replace('\n//# sourceMappingURL=default.js.map\n', '');
 
 /** @param {Error|null} err */
 function handleErr(err) {
