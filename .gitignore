@@ -3,5 +3,5 @@
 *.log
 *.zip
 /coverage/
-dist/*
+dist
 node_modules

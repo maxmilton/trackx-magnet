@@ -1,4 +1,7 @@
-[![ci](https://github.com/maxmilton/trackx-magnet/actions/workflows/ci.yml/badge.svg)](https://github.com/maxmilton/trackx-magnet/actions/workflows/ci.yml)
+[![Build status](https://img.shields.io/github/workflow/status/maxmilton/trackx-magnet/ci)](https://github.com/maxmilton/trackx-magnet/actions)
+[![Coverage status](https://img.shields.io/codeclimate/coverage/maxmilton/trackx-magnet)](https://codeclimate.com/github/maxmilton/trackx-magnet)
+[![Chrome web store version](https://img.shields.io/chrome-web-store/v/nmdlenjlhfgjbmljgopgmigoljgmnpae.svg)](https://chrome.google.com/webstore/detail/trackx-magnet/nmdlenjlhfgjbmljgopgmigoljgmnpae)
+[![Licence](https://img.shields.io/github/license/maxmilton/trackx-magnet.svg)](https://github.com/maxmilton/trackx-magnet/blob/master/LICENSE)
 
 # trackx-magnet ![](./static/icon48.png)
 

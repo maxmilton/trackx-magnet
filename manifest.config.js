@@ -21,18 +21,11 @@ const manifest = {
     48: 'icon48.png',
     128: 'icon128.png',
   },
-  permissions: [
-    '<all_urls>',
-    // https://developer.chrome.com/docs/extensions/reference/tabs/
-    'tabs',
-    // https://developer.chrome.com/docs/extensions/reference/webRequest/
-    'webRequest',
-    'webRequestBlocking',
-  ],
+  permissions: ['<all_urls>', 'tabs', 'webRequest', 'webRequestBlocking'],
   background: {
+    scripts: ['background.js'],
     // persistence required to use the chrome.webRequest API
     persistent: true,
-    scripts: ['background.js'],
   },
   content_scripts: [
     {
