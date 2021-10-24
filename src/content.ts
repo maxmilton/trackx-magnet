@@ -12,16 +12,43 @@ const init = () => {
   // eslint-disable-next-line no-console
   const oldConsoleError = console.error;
 
-  __trackx.setup(`${process.env.API_BASE_URL!}/event`);
-  __trackx.meta._agent = 'trackx-magnet';
-  __trackx.meta._release = process.env.APP_RELEASE;
-  __trackx.meta._ctx = 'content';
+  __trackx.setup(`${process.env.API_BASE_URL!}/event`, (payload, reason) => {
+    if (!payload.meta.details && reason != null && typeof reason === 'object') {
+      const details: Record<string, unknown> = {};
+
+      // eslint-disable-next-line guard-for-in
+      for (const key in reason) {
+        details[key] = (reason as Record<string, unknown>)[key] ?? null;
+      }
+
+      // eslint-disable-next-line no-param-reassign
+      payload.meta.details = details;
+      // eslint-disable-next-line no-param-reassign
+      payload.meta.ctor = reason.constructor?.name;
+    }
+
+    return payload;
+  });
+  __trackx.meta.agent = 'trackx-magnet';
+  __trackx.meta.release = process.env.APP_RELEASE;
+  __trackx.meta.context = 'content';
   __trackx.meta.title = document.title;
   __trackx.meta.referrer = document.referrer;
 
-  // globalThis.top may be undefined in cross-origin frames due to browser security
-  __trackx.meta.top_url = globalThis.top?.location.href;
-  __trackx.meta.top_title = globalThis.top?.document.title;
+  // window.parent may be undefined in cross-origin frames due to browser security
+  if (globalThis.parent) {
+    const urls = [];
+    let parent: Window = window;
+
+    // eslint-disable-next-line no-cond-assign
+    while ((parent = parent.parent) !== window.top) {
+      urls.push(parent.location.href);
+    }
+
+    // __trackx.meta.parent_url = globalThis.parent.location.href;
+    __trackx.meta.parent_url = urls.join(' |> ') || undefined;
+    __trackx.meta.parent_title = globalThis.parent.document.title || undefined;
+  }
 
   if (process.env.NODE_ENV !== 'production') {
     __trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';

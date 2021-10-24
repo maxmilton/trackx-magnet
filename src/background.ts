@@ -18,9 +18,9 @@ const reBlockList = new RegExp(blocklist.join('|'), 'i');
 //     ? null
 //     : data),
 // );
-// trackx.meta._agent = 'trackx-magnet';
-// trackx.meta._release = process.env.APP_RELEASE;
-// trackx.meta._ctx = 'background';
+// trackx.meta.agent = 'trackx-magnet';
+// trackx.meta.release = process.env.APP_RELEASE;
+// trackx.meta.context = 'background';
 
 // if (process.env.NODE_ENV !== 'production') {
 //   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
@@ -32,8 +32,8 @@ const reBlockList = new RegExp(blocklist.join('|'), 'i');
 //       trackx.sendEvent(
 //         new Error(event.error),
 //         {
-//           _ctx: 'webrequest',
-//           ...event,
+//           context: 'webrequest',
+//           details: { ...event },
 //         },
 //         true,
 //       );
@@ -49,13 +49,13 @@ const reBlockList = new RegExp(blocklist.join('|'), 'i');
 //         trackx.sendEvent(
 //           new Error(event.error),
 //           {
-//             _ctx: 'webrequest',
-//             ...event,
+//             context: 'webrequest',
 //             tab_pending_url: tab.pendingUrl,
 //             tab_url: tab.url,
 //             tab_title: tab.title,
 //             tab_active: tab.active,
 //             tab_highlighted: tab.highlighted,
+//             details: { ...event },
 //           },
 //           true,
 //         );
@@ -111,7 +111,7 @@ chrome.webRequest.onHeadersReceived.addListener(
       }
     }
 
-    return { responseHeaders: details.responseHeaders };
+    return { responseHeaders: headers };
   },
   { urls: ['<all_urls>'] },
   ['blocking', 'responseHeaders', 'extraHeaders'],
