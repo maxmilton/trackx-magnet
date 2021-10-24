@@ -1,8 +1,6 @@
 # Privacy Policy For `trackx-magnet` Browser Extension
 
-This browser extension injects the [trackx client](https://github.com/maxmilton/trackx/tree/master/packages/client) into the web pages you visit and may collect data associated with JavaScript errors. When certain data matches our [block list](https://github.com/maxmilton/trackx-magnet/blob/master/src/blocklist.json) no data will be collected.
-
-<!-- to collect data as per the design of the trackx client <https://github.com/maxmilton/trackx/tree/master/packages/client> and API <https://github.com/maxmilton/trackx/tree/master/packages/api>. Therefore it may collect data including information such as: -->
+The `trackx-magnet` browser extension injects the [trackx client](https://github.com/maxmilton/trackx/tree/master/packages/client) into the web pages you visit and may collect data associated with JavaScript errors. When certain data matches our [block list](https://github.com/maxmilton/trackx-magnet/blob/master/src/blocklist.json) no data will be collected.
 
 Data that may be collected includes:
 
