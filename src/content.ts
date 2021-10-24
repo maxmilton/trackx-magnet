@@ -6,6 +6,8 @@ declare global {
 }
 
 const init = () => {
+  'use strict'; // eslint-disable-line
+
   // Capture the values for things trackx overrides before setup
   const oldOnerror = globalThis.onerror;
   const oldOnunhandledrejection = globalThis.onunhandledrejection;
