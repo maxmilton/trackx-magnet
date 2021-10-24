@@ -114,7 +114,11 @@ chrome.webRequest.onHeadersReceived.addListener(
     return { responseHeaders: headers };
   },
   { urls: ['<all_urls>'] },
-  ['blocking', 'responseHeaders', 'extraHeaders'],
+  [
+    'blocking',
+    'responseHeaders',
+    // 'extraHeaders',
+  ],
 );
 
 chrome.runtime.onMessage.addListener((req, { tab }, reply) => {
