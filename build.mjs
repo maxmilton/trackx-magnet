@@ -6,12 +6,8 @@
 
 import esbuild from 'esbuild';
 import fs from 'fs';
-import { createRequire } from 'module';
 import path from 'path';
 import manifest from './manifest.config.js';
-
-// @ts-expect-error - valid in node ESM
-const require = createRequire(import.meta.url);
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -22,13 +18,7 @@ const dir = path.resolve(); // no __dirname in node ESM
 //  ↳ May be tricky to get settings data in content scripts because we need the
 //    script to init `trackx` ASAP to collect page load errors, however, the
 //    `chrome.storage` API is async
-const API_BASE_URL = process.env.API_BASE_URL || 'https://api.trackx.app/v1/pxdfcbscygy';
-
-const trackxClientJs = fs
-  .readFileSync(require.resolve('trackx'), 'utf8')
-  // rename global namespace to prevent overriding an app's trackx instance
-  .replace('var trackx=', 'var __trackx=')
-  .replace('\n//# sourceMappingURL=default.js.map\n', '');
+const API_BASE_URL = 'https://api.trackx.app/v1/pxdfcbscygy';
 
 /** @param {Error|null} err */
 function handleErr(err) {
@@ -53,13 +43,34 @@ esbuild
     entryPoints: ['src/content.ts'],
     outfile: 'dist/content.js',
     platform: 'browser',
-    target: ['chrome91'],
+    target: ['chrome91', 'firefox89'],
+    define: {
+      'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
+      'process.env.NODE_ENV': JSON.stringify(mode),
+    },
+    banner: { js: '"use strict";' },
+    bundle: true,
+    minify: !dev,
+    watch: dev,
+    metafile: process.stdout.isTTY,
+    logLevel: 'debug',
+  })
+  .then(analyzeMeta)
+  .catch(handleErr);
+
+// TrackX client script
+esbuild
+  .build({
+    entryPoints: ['src/trackx.ts'],
+    outfile: 'dist/trackx.js',
+    platform: 'browser',
+    target: ['chrome91', 'firefox89'],
     define: {
       'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
-      'process.env.TRACKX_CLIENT_JS': JSON.stringify(trackxClientJs),
     },
+    banner: { js: '"use strict";' },
     bundle: true,
     minify: !dev,
     watch: dev,
@@ -75,7 +86,7 @@ esbuild
     entryPoints: ['src/background.ts'],
     outfile: 'dist/background.js',
     platform: 'browser',
-    target: ['chrome91'],
+    target: ['chrome91', 'firefox89'],
     define: {
       'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),

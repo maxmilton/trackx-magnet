@@ -34,10 +34,13 @@ const manifest = {
       run_at: 'document_start',
     },
   ],
+  web_accessible_resources: ['trackx.js'],
   incognito: 'not_allowed', // give users some privacy
   content_security_policy:
     "default-src 'none';"
     + "script-src 'self';"
+    // TODO: These should also be customisable too but it's not possible without
+    // recompiling the extension
     + 'connect-src https://api.trackx.app;'
     + 'report-uri https://api.trackx.app/v1/pxdfcbscygy/report;',
 
