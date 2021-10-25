@@ -43,7 +43,7 @@ esbuild
     entryPoints: ['src/content.ts'],
     outfile: 'dist/content.js',
     platform: 'browser',
-    target: ['chrome91', 'firefox89'],
+    target: ['es2020'],
     define: {
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
@@ -64,7 +64,7 @@ esbuild
     entryPoints: ['src/trackx.ts'],
     outfile: 'dist/trackx.js',
     platform: 'browser',
-    target: ['chrome91', 'firefox89'],
+    target: ['es2020'],
     define: {
       'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
@@ -86,7 +86,7 @@ esbuild
     entryPoints: ['src/background.ts'],
     outfile: 'dist/background.js',
     platform: 'browser',
-    target: ['chrome91', 'firefox89'],
+    target: ['es2020'],
     define: {
       'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
