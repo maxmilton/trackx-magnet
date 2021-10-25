@@ -1,12 +1,10 @@
 import * as trackx from 'trackx/modern';
 
-// Capture the values for things trackx overrides before setup
-const oldOnerror = globalThis.onerror;
-const oldOnunhandledrejection = globalThis.onunhandledrejection;
-// eslint-disable-next-line no-console
-const oldConsoleError = console.error;
+let disabled: boolean;
 
 trackx.setup(`${process.env.API_BASE_URL!}/event`, (payload, reason) => {
+  if (disabled) return null;
+
   if (!payload.meta.details && reason != null && typeof reason === 'object') {
     const details: Record<string, unknown> = {};
 
@@ -30,6 +28,8 @@ trackx.meta.context = 'content';
 trackx.meta.title = document.title;
 trackx.meta.referrer = document.referrer;
 
+// FIXME: Accessing parent cross-origin may be the cause of `SecurityError`s
+
 // window.parent may be undefined in cross-origin frames due to browser security
 if (globalThis.parent) {
   const urls = [];
@@ -40,7 +40,6 @@ if (globalThis.parent) {
     urls.push(parent.location.href);
   }
 
-  // trackx.meta.parent_url = globalThis.parent.location.href;
   trackx.meta.parent_url = urls.join(' |> ') || undefined;
   trackx.meta.parent_title = globalThis.parent.document.title || undefined;
 }
@@ -66,18 +65,10 @@ const handleMessage = ({
 
       trackx.ping(`${process.env.API_BASE_URL!}/ping`);
     } else {
-      // Kill trackx; remove its triggers and restore original values
-
-      // NOTE: It's possible for an error to get through before this point
-      // but there's no way to check the tab URL and title against the block
-      // list synchronously without adding the block list in the content
-      // script (which is something we definitely want to avoid) or pausing
-      // the page JS execution (which would be a horrible UX).
-
-      globalThis.onerror = oldOnerror;
-      globalThis.onunhandledrejection = oldOnunhandledrejection;
-      // eslint-disable-next-line no-console
-      console.error = oldConsoleError;
+      // Disable sending trackx events
+      // NOTE: An event could get captured before this point because we can't
+      // get the tab URL and title synchronously inside a page script
+      disabled = true;
     }
 
     globalThis.removeEventListener('message', handleMessage);
