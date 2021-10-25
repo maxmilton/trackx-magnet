@@ -1,4 +1,4 @@
-import * as trackx from 'trackx';
+import * as trackx from 'trackx/modern';
 
 // Capture the values for things trackx overrides before setup
 const oldOnerror = globalThis.onerror;
@@ -64,17 +64,7 @@ const handleMessage = ({
       trackx.meta.tab_url = tab.url;
       trackx.meta.tab_title = tab.title;
 
-      // XXX: By default the trackx client uses an Image + setting its src in
-      // order to send the ping which is great for general purpose use but
-      // it is blocking; instead here we use fetch + keepalive which yields a
-      // similar result but is async so it shouldn't slow down extension
-      // users web browsing at all
-      void fetch(`${process.env.API_BASE_URL!}/ping?sid=${trackx.sid}`, {
-        method: 'POST',
-        mode: 'no-cors',
-        credentials: 'omit',
-        keepalive: true,
-      });
+      trackx.ping(`${process.env.API_BASE_URL!}/ping`);
     } else {
       // Kill trackx; remove its triggers and restore original values
 
