@@ -24,6 +24,8 @@ View event reports at <https://dash.trackx.app/projects/trackx-magnet>.
 
 ## How to install
 
+TODO: Add Firefox install instructions
+
 Verified testers can install directly from the Chrome Web Store:
 
 [![Add to Chrome](https://storage.googleapis.com/chrome-gcs-uploader.appspot.com/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/mPGKYBIR2uCP0ApchDXE.png)](https://chrome.google.com/webstore/detail/trackx-magnet/nmdlenjlhfgjbmljgopgmigoljgmnpae)
