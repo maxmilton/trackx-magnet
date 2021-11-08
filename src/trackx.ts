@@ -1,6 +1,9 @@
 import * as trackx from 'trackx/modern';
 // import * as trackx from '../node_modules/trackx/src/modern';
 
+// Increase max stack frames for v8 and IE
+Error.stackTraceLimit = 40;
+
 let disabled: boolean;
 
 trackx.setup(`${process.env.API_BASE_URL!}/event`, (payload, reason) => {

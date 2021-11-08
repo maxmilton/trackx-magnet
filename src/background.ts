@@ -1,19 +1,20 @@
-// import * as trackx from 'trackx';
+// import * as trackx from 'trackx/modern';
 import blocklist from './blocklist.json';
 
 const reBlockList = new RegExp(blocklist.join('|'), 'i');
 
 // trackx.setup(
 //   `${process.env.API_BASE_URL!}/event`,
-//   // Prevent sending reports with data that match words from the block list
+//   // Don't send reports with data that match block list
 //   (data) => (reBlockList.test(
 //     [
-//       data.url,
-//       data.meta!.initiator,
-//       data.meta!.url,
-//       data.meta!.tab_url,
-//       data.meta!.tab_title,
-//     ].join('-'),
+//       data.uri,
+//       data.meta.title,
+//       data.meta.parent_url,
+//       data.meta.parent_title,
+//       data.meta.tab_url,
+//       data.meta.tab_title,
+//     ].join(','),
 //   )
 //     ? null
 //     : data),
