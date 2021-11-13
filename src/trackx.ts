@@ -35,19 +35,19 @@ trackx.meta.ancestors = [...(globalThis.location.ancestorOrigins || [])];
 
 // FIXME: Accessing parent cross-origin may be the cause of `SecurityError`s
 
-// window.parent may be undefined in cross-origin frames due to browser security
-if (globalThis.parent) {
-  const urls = [];
-  let parent: Window = window;
+// // window.parent may be undefined in cross-origin frames due to browser security
+// if (globalThis.parent) {
+//   const urls = [];
+//   let parent: Window = window;
 
-  // eslint-disable-next-line no-cond-assign
-  while ((parent = parent.parent) !== window.top) {
-    urls.push(parent.location.href);
-  }
+//   // eslint-disable-next-line no-cond-assign
+//   while ((parent = parent.parent) !== window.top) {
+//     urls.push(parent.location.href);
+//   }
 
-  trackx.meta.parent_url = urls.join(' |> ') || undefined;
-  trackx.meta.parent_title = globalThis.parent.document.title || undefined;
-}
+//   trackx.meta.parent_url = urls.join(' |> ') || undefined;
+//   trackx.meta.parent_title = globalThis.parent.document.title || undefined;
+// }
 
 if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
