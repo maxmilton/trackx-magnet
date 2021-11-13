@@ -6,7 +6,7 @@ Error.stackTraceLimit = 40;
 
 let disabled: boolean;
 
-trackx.setup(`${process.env.API_BASE_URL!}/event`, (payload, reason) => {
+trackx.setup(process.env.API_BASE_URL!, (payload, reason) => {
   if (disabled) return null;
 
   if (!payload.meta.details && reason != null && typeof reason === 'object') {
@@ -67,7 +67,7 @@ const handleMessage = ({
       trackx.meta.tab_url = tab.url;
       trackx.meta.tab_title = tab.title;
 
-      trackx.ping(`${process.env.API_BASE_URL!}/ping`);
+      trackx.ping();
     } else {
       // Disable sending trackx events
       // NOTE: An event could get captured before this point because we can't

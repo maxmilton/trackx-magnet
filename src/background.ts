@@ -4,7 +4,7 @@ import blocklist from './blocklist.json';
 const reBlockList = new RegExp(blocklist.join('|'), 'i');
 
 // trackx.setup(
-//   `${process.env.API_BASE_URL!}/event`,
+//   `${process.env.API_BASE_URL!}`,
 //   // Don't send reports with data that match block list
 //   (data) => (reBlockList.test(
 //     [
