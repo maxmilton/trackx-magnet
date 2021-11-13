@@ -31,6 +31,7 @@ trackx.meta.release = process.env.APP_RELEASE;
 trackx.meta.context = 'content';
 trackx.meta.title = document.title;
 trackx.meta.referrer = document.referrer;
+trackx.meta.ancestors = globalThis.location.ancestorOrigins;
 
 // FIXME: Accessing parent cross-origin may be the cause of `SecurityError`s
 
