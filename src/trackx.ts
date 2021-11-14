@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import * as trackx from 'trackx/modern';
 // import * as trackx from '../node_modules/trackx/src/modern';
 
@@ -17,12 +19,19 @@ trackx.setup(process.env.API_BASE_URL!, (payload, reason) => {
       details[key] = (reason as Record<string, unknown>)[key] ?? null;
     }
 
-    // eslint-disable-next-line no-param-reassign
     payload.meta.details = details;
-    // @ts-expect-error - FIXME: TS 4.5 correctly knowns reason is not null, remove this comment
-    // eslint-disable-next-line no-param-reassign
-    payload.meta.ctor = reason.constructor?.name;
   }
+
+  payload.meta.ctor ??= (() => {
+    try {
+      // @ts-expect-error - access unknown in a try/catch for safety
+      return reason.constructor.name; // eslint-disable-line
+    } catch {
+      // No op
+      return '';
+    }
+  })();
+  payload.meta.proto ??= Object.prototype.toString.call(reason);
 
   return payload;
 });
@@ -32,22 +41,14 @@ trackx.meta.context = 'content';
 trackx.meta.title = document.title;
 trackx.meta.referrer = document.referrer;
 trackx.meta.ancestors = [...(globalThis.location.ancestorOrigins || [])];
-
-// FIXME: Accessing parent cross-origin may be the cause of `SecurityError`s
-
-// // window.parent may be undefined in cross-origin frames due to browser security
-// if (globalThis.parent) {
-//   const urls = [];
-//   let parent: Window = window;
-
-//   // eslint-disable-next-line no-cond-assign
-//   while ((parent = parent.parent) !== window.top) {
-//     urls.push(parent.location.href);
-//   }
-
-//   trackx.meta.parent_url = urls.join(' |> ') || undefined;
-//   trackx.meta.parent_title = globalThis.parent.document.title || undefined;
-// }
+trackx.meta.embedded = (() => {
+  try {
+    return !!window.frameElement && window.frameElement.nodeName;
+  } catch {
+    // SecurityError when parent is cross-origin
+    return 'cross-origin';
+  }
+})();
 
 if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
