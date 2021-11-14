@@ -34,7 +34,7 @@ const manifest = {
       run_at: 'document_start',
     },
   ],
-  web_accessible_resources: ['trackx.js'],
+  // web_accessible_resources: ['trackx.js'],
   incognito: 'not_allowed', // give users some privacy
   content_security_policy:
     "default-src 'none';"

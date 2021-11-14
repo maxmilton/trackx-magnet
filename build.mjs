@@ -1,5 +1,6 @@
 // TODO: Fix types and remove these lint exceptions once typescript-eslint can handle js/mjs
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable import/extensions, import/no-extraneous-dependencies */
@@ -37,6 +38,29 @@ async function analyzeMeta(buildResult) {
   return buildResult;
 }
 
+// TrackX client script
+const out = await esbuild
+  .build({
+    entryPoints: ['src/trackx.ts'],
+    outfile: 'dist/trackx.js',
+    platform: 'browser',
+    target: ['es2020'],
+    define: {
+      'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
+      'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
+      'process.env.NODE_ENV': JSON.stringify(mode),
+    },
+    banner: { js: '"use strict";' },
+    bundle: true,
+    minify: !dev,
+    sourcemap: dev && 'inline',
+    watch: dev,
+    metafile: process.stdout.isTTY,
+    write: false,
+    logLevel: 'debug',
+  })
+  .then(analyzeMeta);
+
 // Content script
 esbuild
   .build({
@@ -47,29 +71,7 @@ esbuild
     define: {
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
-    },
-    banner: { js: '"use strict";' },
-    bundle: true,
-    minify: !dev,
-    sourcemap: dev && 'inline',
-    watch: dev,
-    metafile: process.stdout.isTTY,
-    logLevel: 'debug',
-  })
-  .then(analyzeMeta)
-  .catch(handleErr);
-
-// TrackX client script
-esbuild
-  .build({
-    entryPoints: ['src/trackx.ts'],
-    outfile: 'dist/trackx.js',
-    platform: 'browser',
-    target: ['es2020'],
-    define: {
-      'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
-      'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
-      'process.env.NODE_ENV': JSON.stringify(mode),
+      'process.env.TRACKX_CODE': JSON.stringify(out.outputFiles?.[0].text),
     },
     banner: { js: '"use strict";' },
     bundle: true,

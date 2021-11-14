@@ -4,9 +4,19 @@ export {};
 // to execute trackx code in the actual page context
 //  ↳ https://stackoverflow.com/a/9517879
 //  ↳ https://github.com/barbushin/javascript-errors-notifier/blob/7d2fe60f9c44676706eaba6b44ce3e9a0beb949d/content.js#L170-L173
+
+// const script = document.createElement('script');
+// script.crossOrigin = '';
+// script.src = chrome.runtime.getURL('trackx.js');
+// document.documentElement.appendChild(script);
+// script.remove();
+
+// TODO: Would be nice to use the script.src technique but it results in the
+// script loading a little late and missing out on very early errors and the
+// 'message' event is sent before the listener is registered
 const script = document.createElement('script');
 script.crossOrigin = '';
-script.src = chrome.runtime.getURL('trackx.js');
+script.textContent = process.env.TRACKX_CODE!;
 document.documentElement.appendChild(script);
 script.remove();
 
