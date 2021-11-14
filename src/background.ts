@@ -88,7 +88,7 @@ chrome.webRequest.onHeadersReceived.addListener(
             header.value = `${val.slice(
               0,
               nextSemiIndex !== -1 ? nextSemiIndex : undefined,
-            )} https://api.trackx.app${
+            )} ${process.env.API_ORIGIN!}${
               nextSemiIndex !== -1 ? val.slice(nextSemiIndex) : ''
             }`;
           } else if (defaultSrcIndex !== -1) {
@@ -97,7 +97,7 @@ chrome.webRequest.onHeadersReceived.addListener(
             header.value = `${val.slice(
               0,
               nextSemiIndex !== -1 ? nextSemiIndex : undefined,
-            )} https://api.trackx.app${
+            )} ${process.env.API_ORIGIN!}${
               nextSemiIndex !== -1 ? val.slice(nextSemiIndex) : ''
             }`;
           }

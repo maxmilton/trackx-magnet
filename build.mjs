@@ -91,6 +91,7 @@ esbuild
     target: ['es2020'],
     define: {
       'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
+      'process.env.API_ORIGIN': JSON.stringify(new URL(API_BASE_URL).origin),
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
     },
