@@ -15,12 +15,12 @@ specifiers:
   eslint-plugin-unicorn: 38.0.1
   git-ref: 0.3.0
   prettier: 2.4.1
-  trackx: 0.2.0
+  trackx: 0.2.1
   typescript: 4.4.4
   uvu: 0.5.2
 
 dependencies:
-  trackx: 0.2.0
+  trackx: 0.2.1
 
 devDependencies:
   '@types/chrome': 0.0.163
@@ -109,7 +109,7 @@ packages:
       '@babel/compat-data': 7.16.0
       '@babel/core': 7.16.0
       '@babel/helper-validator-option': 7.14.5
-      browserslist: 4.17.6
+      browserslist: 4.18.0
       semver: 6.3.0
     dev: true
 
@@ -576,8 +576,8 @@ packages:
       fill-range: 7.0.1
     dev: true
 
-  /browserslist/4.17.6:
-    resolution: {integrity: sha512-uPgz3vyRTlEiCv4ee9KlsKgo2V6qPk7Jsn0KAn2OBqbqKo3iNcPEC1Ti6J4dwnz+aIRfEEEuOzC9IBk8tXUomw==}
+  /browserslist/4.18.0:
+    resolution: {integrity: sha512-ER2M0g5iAR84fS/zjBDqEgU6iO5fS9JI2EkHr5zxDxYEFk3LjhU9Vpp/INb6RMQphxko7PDV1FH38H/qVP5yCA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
@@ -2283,8 +2283,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /trackx/0.2.0:
-    resolution: {integrity: sha512-687srk2IRSkpg3jl60yLGQnnQxK181HuPszGq5TqSQpdEUi0GxlGcdjV6q0WUwDREWOWKwgnVvpl0AVTA+ikXw==}
+  /trackx/0.2.1:
+    resolution: {integrity: sha512-EXppmy+yya8sPHdufhHMl0O/p9irvsn/AGVKiShG0AF4BJxlrVBaeSBQP835TpTw2fPC2ElKqZnyaPpLqMEpqQ==}
     dependencies:
       '@ungap/global-this': 0.4.4
     dev: false
