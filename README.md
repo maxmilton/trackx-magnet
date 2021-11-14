@@ -19,7 +19,8 @@ View event reports at <https://dash.trackx.app/projects/trackx-magnet>.
 
 ### TODO
 
-- Customisable Track API URL (without needing to recompile the extension)
+- Customisable Track API URL
+  - Not possible without recompiling the extension so provide good documentation about how to do that
 - User maintained block list + easily add the current URL origin to it
 
 ## How to install
