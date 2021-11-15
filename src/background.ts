@@ -4,7 +4,7 @@ import blocklist from './blocklist.json';
 const reBlockList = new RegExp(blocklist.join('|'), 'i');
 
 // trackx.setup(
-//   `${process.env.API_BASE_URL!}`,
+//   `${process.env.API_ENDPOINT!}`,
 //   // Don't send reports with data that match block list
 //   (data) => (reBlockList.test(
 //     [
@@ -104,7 +104,7 @@ chrome.webRequest.onHeadersReceived.addListener(
 
           if (reportUriIndex === -1) {
             // add new report-uri directive
-            header.value += `;report-uri ${process.env.API_BASE_URL!}/report`;
+            header.value += `;report-uri ${process.env.API_ENDPOINT!}/report`;
           }
 
           break;

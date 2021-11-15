@@ -1,4 +1,6 @@
-// TODO: Fix types and remove these lint exceptions once typescript-eslint can handle js/mjs
+// FIXME: Remove these lint exceptions once linting can handle mjs
+//  ↳ When TS 4.6+ is released and typescript-eslint has support
+//  ↳ https://github.com/typescript-eslint/typescript-eslint/issues/3950
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -8,18 +10,22 @@
 import esbuild from 'esbuild';
 import fs from 'fs';
 import path from 'path';
-import manifest from './manifest.config.js';
+import createManifest from './manifest.config.js';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const dir = path.resolve(); // no __dirname in node ESM
 
-// TODO: Allow customising this at runtime so users don't need to run a build
-// when they want to change the API endpoint
-//  ↳ May be tricky to get settings data in content scripts because we need the
-//    script to init `trackx` ASAP to collect page load errors, however, the
-//    `chrome.storage` API is async
-const API_BASE_URL = 'https://api.trackx.app/v1/pxdfcbscygy';
+// TODO: It's not possible to change this without recompiling the extension
+// because of the extension CSP is static, so provide documentation about how
+// to compile
+const API_ENDPOINT = process.env.API_ENDPOINT || 'https://api.trackx.app/v1/pxdfcbscygy';
+const API_ORIGIN = new URL(API_ENDPOINT).origin;
+
+const manifest = createManifest({
+  API_ENDPOINT,
+  API_ORIGIN,
+});
 
 /** @param {Error|null} err */
 function handleErr(err) {
@@ -42,11 +48,11 @@ async function analyzeMeta(buildResult) {
 const out = await esbuild
   .build({
     entryPoints: ['src/trackx.ts'],
-    outfile: 'dist/trackx.js',
+    // outfile: 'dist/trackx.js',
     platform: 'browser',
     target: ['es2021'],
     define: {
-      'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
+      'process.env.API_ENDPOINT': JSON.stringify(API_ENDPOINT),
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
     },
@@ -55,7 +61,7 @@ const out = await esbuild
     minify: !dev,
     sourcemap: dev && 'inline',
     watch: dev,
-    metafile: process.stdout.isTTY,
+    metafile: !dev && process.stdout.isTTY,
     write: false,
     logLevel: 'debug',
   })
@@ -78,7 +84,7 @@ esbuild
     minify: !dev,
     sourcemap: dev && 'inline',
     watch: dev,
-    metafile: process.stdout.isTTY,
+    metafile: !dev && process.stdout.isTTY,
     logLevel: 'debug',
   })
   .then(analyzeMeta)
@@ -92,8 +98,8 @@ esbuild
     platform: 'browser',
     target: ['es2021'],
     define: {
-      'process.env.API_BASE_URL': JSON.stringify(API_BASE_URL),
-      'process.env.API_ORIGIN': JSON.stringify(new URL(API_BASE_URL).origin),
+      'process.env.API_ENDPOINT': JSON.stringify(API_ENDPOINT),
+      'process.env.API_ORIGIN': JSON.stringify(API_ORIGIN),
       'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
       'process.env.NODE_ENV': JSON.stringify(mode),
     },
@@ -103,7 +109,7 @@ esbuild
     sourcemap: dev && 'inline',
     legalComments: 'external',
     watch: dev,
-    metafile: process.stdout.isTTY,
+    metafile: !dev && process.stdout.isTTY,
     logLevel: 'debug',
   })
   .then(analyzeMeta)

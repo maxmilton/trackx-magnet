@@ -7,9 +7,9 @@ const { gitRef } = require('git-ref');
 const blocklist = require('./src/blocklist.json');
 const pkg = require('./package.json');
 
-/** @type {chrome.runtime.Manifest} */
-const manifest = {
-  manifest_version: 2, // v3 restricts injecting JS so we need v2
+/** @type {(opts: { API_ENDPOINT: string; API_ORIGIN: string }) => chrome.runtime.Manifest} */
+module.exports = (opts) => ({
+  manifest_version: 2, // v3 restricts injecting inline scripts and webRequestBlocking so we need v2
   name: 'TrackX Magnet',
   description: 'Collect error samples from web pages using the trackx client.',
   version: pkg.version,
@@ -39,13 +39,9 @@ const manifest = {
   content_security_policy:
     "default-src 'none';"
     + "script-src-elem 'self';"
-    // TODO: These should also be customisable too but it's not possible without
-    // recompiling the extension
-    + 'connect-src https://api.trackx.app;'
-    + 'report-uri https://api.trackx.app/v1/pxdfcbscygy/report;',
+    + `connect-src ${opts.API_ORIGIN};`
+    + `report-uri ${opts.API_ENDPOINT}/report;`,
 
   // https://chrome.google.com/webstore/detail/trackx-magnet/nmdlenjlhfgjbmljgopgmigoljgmnpae
   key: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr1dkiK1jFYwT+kh89LJlQ+0Bo5CYWS6+Ix+GgGKhBx9tVJ9WpDU2yaU1HA362z/hOvQOrj6I45nP652Dji8IiLhqKyirzpR1CSBOnLK0Z47yJAN08dM+p+kL1NuwYtZl4ycwtqclK5YYBaF/y8tAEJ//rxWqXo3E/hOhi+IqgnA3GydNnn0tMDG2ZdBgcp77P8k3OZJwseQ9TxLfe788MB8LR9E5Zlwl8mLyyEA8dr8HkRS2AaLlebgI/FKSbi6aDvp0K0L7xUJtbq8QwfS0Pvu2rBXhOeY8HmLaW9/Ya50tRI9CAq1/oRI6pbGh6N9EbMjeXlttjsbnKXYs2a+4WQIDAQAB',
-};
-
-module.exports = manifest;
+});

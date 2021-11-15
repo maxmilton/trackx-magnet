@@ -8,7 +8,7 @@ Error.stackTraceLimit = 40;
 
 let disabled: boolean;
 
-trackx.setup(process.env.API_BASE_URL!, (payload, reason) => {
+trackx.setup(process.env.API_ENDPOINT!, (payload, reason) => {
   if (disabled) return null;
 
   if (!payload.meta.details && reason != null && typeof reason === 'object') {
