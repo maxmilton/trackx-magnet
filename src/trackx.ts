@@ -44,12 +44,12 @@ const ancestors = globalThis.location.ancestorOrigins;
 trackx.meta.ancestors = (ancestors?.length && [...ancestors]) || '';
 trackx.meta.embedded = (() => {
   try {
-    return !!window.frameElement && window.frameElement.nodeName;
+    return window.frameElement?.nodeName;
   } catch {
     // SecurityError when parent is cross-origin
     return 'cross-origin';
   }
-})();
+})() || '';
 
 if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
