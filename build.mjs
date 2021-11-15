@@ -26,7 +26,7 @@ const manifest = createManifest({
   API_ENDPOINT,
   API_ORIGIN,
 });
-const release = manifest.version_name;
+const release = manifest.version_name || manifest.version;
 
 if (process.env.FIREFOX_BUILD) {
   delete manifest.version_name;
