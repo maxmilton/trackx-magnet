@@ -26,6 +26,7 @@ const manifest = createManifest({
   API_ENDPOINT,
   API_ORIGIN,
 });
+const release = manifest.version_name || manifest.version;
 
 /** @param {Error|null} err */
 function handleErr(err) {
@@ -53,7 +54,7 @@ const out = await esbuild
     target: ['es2021'],
     define: {
       'process.env.API_ENDPOINT': JSON.stringify(API_ENDPOINT),
-      'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
+      'process.env.APP_RELEASE': JSON.stringify(release),
       'process.env.NODE_ENV': JSON.stringify(mode),
     },
     banner: { js: '"use strict";' },
@@ -75,7 +76,7 @@ esbuild
     platform: 'browser',
     target: ['es2021'],
     define: {
-      'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
+      'process.env.APP_RELEASE': JSON.stringify(release),
       'process.env.NODE_ENV': JSON.stringify(mode),
       'process.env.TRACKX_CODE': JSON.stringify(out.outputFiles?.[0].text),
     },
@@ -100,7 +101,7 @@ esbuild
     define: {
       'process.env.API_ENDPOINT': JSON.stringify(API_ENDPOINT),
       'process.env.API_ORIGIN': JSON.stringify(API_ORIGIN),
-      'process.env.APP_RELEASE': JSON.stringify(manifest.version_name),
+      'process.env.APP_RELEASE': JSON.stringify(release),
       'process.env.NODE_ENV': JSON.stringify(mode),
     },
     banner: { js: '"use strict";' },
