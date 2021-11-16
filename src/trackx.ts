@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable unicorn/no-nested-ternary */
 
 import * as trackx from 'trackx/modern';
 // import * as trackx from '../node_modules/trackx/src/modern';
@@ -50,6 +51,18 @@ trackx.meta.embedded = (() => {
     return 'cross-origin';
   }
 })() || '';
+
+// https://github.com/plausible/analytics/blob/086d4de74e7b29ed85d1f88067eff4c8598fa71a/tracker/src/plausible.js#L53
+// https://github.com/plausible/analytics/blob/7a02aae2a562efd39f11fa405c0f084c4d59e8cc/lib/plausible_web/controllers/api/external_controller.ex#L255-L258
+// low accuracy but interesting data point
+const width = window.innerWidth;
+trackx.meta.screen_size = width < 576
+  ? 'Mobile'
+  : width < 992
+    ? 'Tablet'
+    : width < 1440
+      ? 'Laptop'
+      : 'Desktop';
 
 if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';

@@ -12,8 +12,8 @@ export {};
 // script.remove();
 
 // TODO: Would be nice to use the script.src technique but it results in the
-// script loading a little late and missing out on very early errors and the
-// 'message' event is sent before the listener is registered
+// script loading late and missing out on very early errors and the 'message'
+// event is sent before the listener is registered
 const script = document.createElement('script');
 script.crossOrigin = '';
 script.textContent = process.env.TRACKX_CODE!;
