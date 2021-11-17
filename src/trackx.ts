@@ -52,6 +52,9 @@ trackx.meta.embedded = (() => {
   }
 })() || '';
 
+// TODO: Better name; "screen_size" isn't 100% accurate since subframes are
+// often smaller than the main viewport but still report back this value
+
 // https://github.com/plausible/analytics/blob/086d4de74e7b29ed85d1f88067eff4c8598fa71a/tracker/src/plausible.js#L53
 // https://github.com/plausible/analytics/blob/7a02aae2a562efd39f11fa405c0f084c4d59e8cc/lib/plausible_web/controllers/api/external_controller.ex#L255-L258
 // low accuracy but interesting data point
