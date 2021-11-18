@@ -26,11 +26,6 @@ if (process.env.FIREFOX_BUILD) {
   delete manifest.key;
 }
 
-/** @param {Error|null} err */
-function handleErr(err) {
-  if (err) throw err;
-}
-
 /**
  * @param {esbuild.BuildResult} buildResult
  * @returns {Promise<esbuild.BuildResult>}
@@ -66,7 +61,7 @@ const out = await esbuild
   .then(analyzeMeta);
 
 // Content script
-esbuild
+await esbuild
   .build({
     entryPoints: ['src/content.ts'],
     outfile: 'dist/content.js',
@@ -85,11 +80,10 @@ esbuild
     metafile: !dev && process.stdout.isTTY,
     logLevel: 'debug',
   })
-  .then(analyzeMeta)
-  .catch(handleErr);
+  .then(analyzeMeta);
 
 // Background script
-esbuild
+await esbuild
   .build({
     entryPoints: ['src/background.ts'],
     outfile: 'dist/background.js',
@@ -110,8 +104,7 @@ esbuild
     metafile: !dev && process.stdout.isTTY,
     logLevel: 'debug',
   })
-  .then(analyzeMeta)
-  .catch(handleErr);
+  .then(analyzeMeta);
 
 // Extension manifest
 await fs.writeFile(
