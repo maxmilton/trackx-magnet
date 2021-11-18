@@ -1,14 +1,7 @@
-// FIXME: Remove these lint exceptions once linting can handle mjs
-//  ↳ When TS 4.6+ is released and typescript-eslint has support
-//  ↳ https://github.com/typescript-eslint/typescript-eslint/issues/3950
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable import/extensions, import/no-extraneous-dependencies */
 
 import esbuild from 'esbuild';
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 import createManifest from './manifest.config.js';
 
@@ -46,7 +39,6 @@ async function analyzeMeta(buildResult) {
   if (buildResult.metafile) {
     console.log(await esbuild.analyzeMetafile(buildResult.metafile));
   }
-
   return buildResult;
 }
 
@@ -122,8 +114,7 @@ esbuild
   .catch(handleErr);
 
 // Extension manifest
-fs.writeFile(
+await fs.writeFile(
   path.join(dir, 'dist', 'manifest.json'),
   JSON.stringify(manifest),
-  handleErr,
 );
