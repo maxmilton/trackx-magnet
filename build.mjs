@@ -1,4 +1,4 @@
-/* eslint-disable import/extensions, import/no-extraneous-dependencies */
+/* eslint-disable import/extensions, import/no-extraneous-dependencies, no-console */
 
 import esbuild from 'esbuild';
 import fs from 'fs/promises';
