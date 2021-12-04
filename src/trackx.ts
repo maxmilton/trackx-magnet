@@ -20,7 +20,7 @@ trackx.setup(process.env.API_ENDPOINT!, (payload, reason) => {
       details[key] = (reason as Record<string, unknown>)[key] ?? null;
     }
 
-    payload.meta.details = details.length ? details : '';
+    payload.meta.details = Object.keys(details).length > 0 ? details : '';
   }
 
   payload.meta.ctor ??= (() => {
