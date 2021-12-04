@@ -1,8 +1,6 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable unicorn/no-nested-ternary */
+/* eslint-disable no-param-reassign, unicorn/no-nested-ternary */
 
 import * as trackx from 'trackx/modern';
-// import * as trackx from '../node_modules/trackx/src/modern';
 
 // Increase max stack frames for v8 and IE
 Error.stackTraceLimit = 40;
@@ -25,7 +23,7 @@ trackx.setup(process.env.API_ENDPOINT!, (payload, reason) => {
 
   payload.meta.ctor ??= (() => {
     try {
-      // @ts-expect-error - access unknown in a try/catch for safety
+      // @ts-expect-error - Access unknown in a try/catch for safety
       return reason.constructor.name; // eslint-disable-line
     } catch {
       // No op
@@ -47,23 +45,20 @@ trackx.meta.embedded = (() => {
   try {
     return window.frameElement?.nodeName;
   } catch {
-    // SecurityError when parent is cross-origin
+    // Catch SecurityError when parent is cross-origin
     return 'cross-origin';
   }
 })() || '';
 
-// TODO: Better name; "screen_size" isn't 100% accurate since subframes are
-// often smaller than the main viewport but still report back this value
-
 // https://github.com/plausible/analytics/blob/086d4de74e7b29ed85d1f88067eff4c8598fa71a/tracker/src/plausible.js#L53
 // https://github.com/plausible/analytics/blob/7a02aae2a562efd39f11fa405c0f084c4d59e8cc/lib/plausible_web/controllers/api/external_controller.ex#L255-L258
-// low accuracy but interesting data point
-const width = window.innerWidth;
-trackx.meta.screen_size = width < 576
+// Low accuracy but interesting data point
+const screenWidth = window.screen.width;
+trackx.meta.screen_size = screenWidth < 576
   ? 'Mobile'
-  : width < 992
+  : screenWidth < 992
     ? 'Tablet'
-    : width < 1440
+    : screenWidth < 1440
       ? 'Laptop'
       : 'Desktop';
 
@@ -88,9 +83,9 @@ const handleMessage = ({
 
       trackx.ping();
     } else {
-      // Disable sending trackx events
-      // NOTE: An event could get captured before this point because we can't
-      // get the tab URL and title synchronously inside a page script
+      // Disable sending trackx events -- but keep in mind an event could be
+      // captured before this point because we can't get the tab URL and title
+      // synchronously inside a page script
       disabled = true;
     }
 
