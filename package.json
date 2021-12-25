@@ -22,12 +22,13 @@
     "trackx": "0.2.1"
   },
   "devDependencies": {
-    "@types/chrome": "0.0.171",
-    "@types/node": "17.0.0",
+    "@types/chrome": "0.0.172",
+    "@types/node": "17.0.4",
     "@typescript-eslint/eslint-plugin": "5.8.0",
     "@typescript-eslint/parser": "5.8.0",
     "c8": "7.10.0",
-    "esbuild": "0.14.7",
+    "esbuild": "0.14.8",
+    "esbuild-minify-templates": "0.7.1",
     "eslint": "8.5.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-airbnb-typescript": "16.1.0",
