@@ -19,7 +19,7 @@
     "zip-ff": "export FIREFOX_BUILD=1 && pnpm run zip && mv chrome-extension.zip firefox-extension.zip"
   },
   "dependencies": {
-    "trackx": "0.2.1"
+    "trackx": "0.3.0"
   },
   "devDependencies": {
     "@types/chrome": "0.0.175",
@@ -27,7 +27,7 @@
     "@typescript-eslint/eslint-plugin": "5.9.0",
     "@typescript-eslint/parser": "5.9.0",
     "c8": "7.11.0",
-    "esbuild": "0.14.10",
+    "esbuild": "0.14.11",
     "esbuild-minify-templates": "0.7.2",
     "eslint": "8.6.0",
     "eslint-config-airbnb-base": "15.0.0",
