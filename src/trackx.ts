@@ -94,3 +94,110 @@ const handleMessage = ({
 };
 
 globalThis.addEventListener('message', handleMessage);
+
+// document.addEventListener('securitypolicyviolation', (event) => {
+//   const config = JSON.parse(
+//     document.getElementById('csp-report-uri').textContent,
+//   );
+//   const reportKeys = {
+//     blockedURI: 'blocked-uri',
+//     columnNumber: 'column-number',
+//     documentURI: 'document-uri',
+//     effectiveDirective: 'effective-directive',
+//     lineNumber: 'line-number',
+//     originalPolicy: 'original-policy',
+//     sourceFile: 'source-file',
+//     statusCode: 'status-code',
+//     violatedDirective: 'violated-directive',
+//   };
+//   const json = { 'csp-report': {} };
+//   for (let i = 0, len = config.keys.length; i < len; i++) {
+//     if (event[config.keys[i]] !== 0 && event[config.keys[i]] !== '') {
+//       json['csp-report'][
+//         reportKeys[config.keys[i]] ? reportKeys[config.keys[i]] : config.keys[i]
+//       ] = event[config.keys[i]];
+//     }
+//   }
+//   const xhr = new XMLHttpRequest();
+//   xhr.open('POST', config.reportUri, true);
+//   xhr.setRequestHeader('content-type', 'application/csp-report');
+//   xhr.send(JSON.stringify(json));
+// });
+
+document.addEventListener('securitypolicyviolation', (event) => {
+  console.log(event);
+  console.log(JSON.stringify(event));
+  console.log(JSON.parse(JSON.stringify(event)));
+});
+
+// https://developer.mozilla.org/en-US/docs/Web/API/ReportingObserver#browser_compatibility
+if ('ReportingObserver' in globalThis) {
+  // https://web.dev/reporting-observer/
+  const observer = new ReportingObserver(
+    (reports) => {
+      fetch(`${process.env.API_ENDPOINT!}/report`, {
+        method: 'POST',
+        keepalive: true,
+        headers: { 'Content-Type': 'application/reports+json' },
+        body: JSON.stringify(reports),
+      }).catch(console.error);
+    },
+    { buffered: true },
+  );
+
+  observer.observe();
+}
+
+const enum ReportTypes {
+  Crash = 'crash',
+  Deprecation = 'deprecation',
+  Intervention = 'intervention',
+}
+
+interface CrashReportBody {
+  [key: string]: any;
+  crashId: string;
+  reason?: string;
+}
+
+interface DeprecationReportBody {
+  [key: string]: any;
+  id: string;
+  anticipatedRemoval?: Date;
+  message: string;
+  sourceFile?: string;
+  lineNumber?: number;
+  columnNumber?: number;
+}
+
+interface InterventionReportBody {
+  [key: string]: any;
+  id: string;
+  message: string;
+  sourceFile?: string;
+  lineNumber?: number;
+  columnNumber?: number;
+}
+
+type ReportBody =
+  | CrashReportBody
+  | DeprecationReportBody
+  | InterventionReportBody;
+
+interface Report {
+  [key: string]: any;
+  type: ReportTypes;
+  url: string;
+  body?: ReportBody;
+}
+
+/** @see https://developer.mozilla.org/en-US/docs/Web/API/ReportingObserver */
+declare class ReportingObserver {
+  constructor(
+    callback: (reports: Report[], observer: ReportingObserver) => void,
+    options?: { buffered?: boolean; types?: ReportTypes[] },
+  );
+  observe(): void;
+  disconnect(): void;
+  takeRecords(): Report[];
+}
