@@ -35,10 +35,9 @@ trackx.setup(process.env.API_ENDPOINT!, (payload, reason) => {
 
   return payload;
 });
+
 trackx.meta.agent = 'trackx-magnet';
 trackx.meta.release = process.env.APP_RELEASE;
-trackx.meta.context = 'content';
-trackx.meta.title = document.title;
 trackx.meta.referrer = document.referrer;
 const ancestors = globalThis.location.ancestorOrigins;
 trackx.meta.ancestors = (ancestors?.length && [...ancestors]) || '';
@@ -67,6 +66,12 @@ if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
 }
 
+// At the time this script is run the document is empty, so wait for content to
+// be populated before trying to access it
+setTimeout(() => {
+  trackx.meta.title = document.title;
+});
+
 const handleMessage = ({
   data,
   origin,
@@ -79,8 +84,8 @@ const handleMessage = ({
     const tab = data.__tab;
 
     if (tab) {
-      trackx.meta.tab_url = tab.url;
       trackx.meta.tab_title = tab.title;
+      trackx.meta.tab_url = tab.url;
 
       trackx.ping();
     } else {
