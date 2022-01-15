@@ -1,13 +1,33 @@
 export {};
 
 document.addEventListener('securitypolicyviolation', (event) => {
+  const reportKeys = [
+    'blockedURI',
+    'columnNumber',
+    'disposition',
+    'documentURI',
+    'effectiveDirective',
+    'lineNumber',
+    'originalPolicy',
+    'referrer',
+    'sample',
+    'sourceFile',
+    'statusCode',
+    'violatedDirective',
+  ] as const;
+  const body: Record<string, unknown> = {};
+
+  for (const key of reportKeys) {
+    body[key] = event[key];
+  }
+
   fetch(`${process.env.API_ENDPOINT!}/report`, {
     method: 'POST',
     keepalive: true,
     headers: { 'Content-Type': 'application/reports+json' },
     body: JSON.stringify([
       {
-        body: event,
+        body,
         type: 'csp-violation',
         url: window.location.href,
       },
