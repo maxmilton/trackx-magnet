@@ -15,13 +15,13 @@ specifiers:
   eslint-plugin-unicorn: 40.0.0
   git-ref: 0.3.1
   prettier: 2.5.1
-  trackx: 0.3.0
+  trackx: 0.4.0
   tsm: 2.2.1
   typescript: 4.5.4
   uvu: 0.5.3
 
 dependencies:
-  trackx: 0.3.0
+  trackx: 0.4.0
 
 devDependencies:
   '@types/chrome': 0.0.176
@@ -1063,8 +1063,8 @@ packages:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
     dev: true
 
-  /fast-glob/3.2.10:
-    resolution: {integrity: sha512-s9nFhFnvR63wls6/kM88kQqDhMu0AfdjqouE2l5GVQPbqLgyFjjU5ry/r2yKsJxpb9Py1EYNqieFrmMaX4v++A==}
+  /fast-glob/3.2.11:
+    resolution: {integrity: sha512-xrO3+1bxSo3ZVHAnqzyuewYT6aMFHRAd4Kcs92MAonjwQZLsK9d0SF1IyQ3k5PoirxTW0Oe/RqFgMQ6TcNE5Ew==}
     engines: {node: '>=8.6.0'}
     dependencies:
       '@nodelib/fs.stat': 2.0.5
@@ -1220,7 +1220,7 @@ packages:
     dependencies:
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.2.10
+      fast-glob: 3.2.11
       ignore: 5.2.0
       merge2: 1.4.1
       slash: 3.0.0
@@ -2045,8 +2045,8 @@ packages:
       is-number: 7.0.0
     dev: true
 
-  /trackx/0.3.0:
-    resolution: {integrity: sha512-fltMwt3+NOxbxCiFAbjLpPAFfEEHoKzQBbAmOMOqr1YN3d+tEABFMdsTXUtGaz9zkqenO3q6bURGZPKiIKma6A==}
+  /trackx/0.4.0:
+    resolution: {integrity: sha512-sSEHsR6pYUGmjEOh01djIyTJPXV5/e4aBL6nciqHvWuwnVOsmdy2KOhOCVYbrZ20+3q7U+RE9ORAxmylM/A0AA==}
     dependencies:
       '@ungap/global-this': 0.4.4
     dev: false

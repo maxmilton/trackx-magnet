@@ -19,7 +19,7 @@
     "zip-ff": "export FIREFOX_BUILD=1 && pnpm run zip && mv chrome-extension.zip firefox-extension.zip"
   },
   "dependencies": {
-    "trackx": "0.3.0"
+    "trackx": "0.4.0"
   },
   "devDependencies": {
     "@types/chrome": "0.0.176",
