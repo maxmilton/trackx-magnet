@@ -1,74 +1,10 @@
-// import * as trackx from 'trackx/modern';
 import blocklist from './blocklist.json';
 
-const NEL_HEADER_VALUE = '{"report_to":"default","max_age":1440}';
+const REPORT_TO_HEADER_VALUE = `{"max_age":1440,"endpoints":[{"url":"${process
+  .env.API_ENDPOINT!}/report"}]}`;
+const NEL_HEADER_VALUE = '{"max_age":1440,"report_to":"default"}';
 
 const reBlockList = new RegExp(blocklist.join('|'), 'i');
-
-// trackx.setup(
-//   `${process.env.API_ENDPOINT!}`,
-//   // Don't send reports with data that match block list
-//   (data) => (reBlockList.test(
-//     [
-//       data.uri,
-//       data.meta.title,
-//       data.meta.parent_url,
-//       data.meta.parent_title,
-//       data.meta.tab_url,
-//       data.meta.tab_title,
-//     ].join(','),
-//   )
-//     ? null
-//     : data),
-// );
-// trackx.meta.agent = 'trackx-magnet';
-// trackx.meta.release = process.env.APP_RELEASE;
-// trackx.meta.context = 'background';
-
-// if (process.env.NODE_ENV !== 'production') {
-//   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
-// }
-
-// chrome.webRequest.onErrorOccurred.addListener(
-//   (event) => {
-//     if (event.tabId === -1) {
-//       trackx.sendEvent(
-//         new Error(event.error),
-//         {
-//           context: 'webrequest',
-//           details: { ...event },
-//         },
-//         true,
-//       );
-//     } else {
-//       // @ts-expect-error - tab may be undefined when no matching tab id
-//       chrome.tabs.get(event.tabId, (tab = {}) => {
-//         const error = chrome.runtime.lastError;
-//         if (error?.message?.startsWith('No tab with id') === false) {
-//           // eslint-disable-next-line no-console
-//           console.error(error);
-//         }
-
-//         trackx.sendEvent(
-//           new Error(event.error),
-//           {
-//             context: 'webrequest',
-//             tab_pending_url: tab.pendingUrl,
-//             tab_url: tab.url,
-//             tab_title: tab.title,
-//             tab_active: tab.active,
-//             tab_highlighted: tab.highlighted,
-//             details: { ...event },
-//           },
-//           true,
-//         );
-//       });
-//     }
-//   },
-//   {
-//     urls: ['<all_urls>'],
-//   },
-// );
 
 function modifyCSPHeader(header: string): string {
   let newHeader = header;
@@ -124,11 +60,6 @@ function modifyReportingEndpointsHeader(header: string): string {
   return newHeader;
 }
 
-function modifyReportToHeader(header: string): string {
-  // FIXME: Replace existing default endpoint or add new default endpoint
-  return header;
-}
-
 // Modify CSP header if present to allow connecting to the TrackX API
 // https://github.com/GoogleChrome/chrome-extensions-samples/blob/e716678b67fd30a5876a552b9665e9f847d6d84b/mv2-archive/extensions/no_cookies/background.js
 chrome.webRequest.onHeadersReceived.addListener(
@@ -150,7 +81,7 @@ chrome.webRequest.onHeadersReceived.addListener(
           break;
         case 'report-to':
           hasReportTo = true;
-          header.value = modifyReportToHeader(header.value!);
+          header.value = REPORT_TO_HEADER_VALUE;
           break;
         case 'nel':
           hasNEL = true;
@@ -171,7 +102,7 @@ chrome.webRequest.onHeadersReceived.addListener(
     if (!hasReportTo) {
       responseHeaders.push({
         name: 'report-to',
-        value: `${process.env.API_ENDPOINT!}/report`,
+        value: REPORT_TO_HEADER_VALUE,
       });
     }
 
