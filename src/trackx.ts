@@ -51,17 +51,16 @@ trackx.meta.embedded = (() => {
   }
 })() || '';
 
-// https://github.com/plausible/analytics/blob/086d4de74e7b29ed85d1f88067eff4c8598fa71a/tracker/src/plausible.js#L53
-// https://github.com/plausible/analytics/blob/7a02aae2a562efd39f11fa405c0f084c4d59e8cc/lib/plausible_web/controllers/api/external_controller.ex#L255-L258
-// Low accuracy but interesting data point
 const screenWidth = window.screen.width;
 trackx.meta.screen_size = screenWidth < 576
-  ? 'Mobile'
+  ? 'XS'
   : screenWidth < 992
-    ? 'Tablet'
+    ? 'S'
     : screenWidth < 1440
-      ? 'Laptop'
-      : 'Desktop';
+      ? 'M'
+      : screenWidth < 3840
+        ? 'L'
+        : 'XL';
 
 if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
