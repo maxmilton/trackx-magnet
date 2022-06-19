@@ -1,6 +1,6 @@
 {
   "name": "trackx-magnet",
-  "version": "2.9.1",
+  "version": "2.9.2",
   "description": "Browser extension to collect errors from web pages with the trackx client.",
   "repository": "maxmilton/trackx-magnet",
   "homepage": "https://github.com/maxmilton/trackx-magnet",
