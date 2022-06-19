@@ -6,20 +6,21 @@ import fs from 'fs/promises';
 import path from 'path';
 import createManifest from './manifest.config.js';
 
-const mode = process.env.NODE_ENV;
-const dev = mode === 'development';
-const dir = path.resolve(); // no __dirname in node ESM
-
 // TODO: It's not possible to change this without recompiling the extension
-// because of the extension CSP is static, so provide documentation about how
-// to compile
+// because of the extension CSP is static. Provide documentation about how
+// to compile a custom build.
 const API_ENDPOINT = process.env.API_ENDPOINT || 'https://api.trackx.app/v1/pxdfcbscygy';
 const API_ORIGIN = new URL(API_ENDPOINT).origin;
 
+const firefox = process.env.FIREFOX_BUILD;
+const mode = process.env.NODE_ENV;
+const dev = mode === 'development';
+const dir = path.resolve(); // loose alternative to __dirname in node ESM
 const manifest = createManifest({ API_ENDPOINT, API_ORIGIN });
 const release = manifest.version_name || manifest.version;
+const target = firefox ? ['firefox91'] : ['chrome102']; // Firefox ESR and Chrome stable
 
-if (process.env.FIREFOX_BUILD) {
+if (firefox) {
   delete manifest.version_name;
   delete manifest.key;
 }
@@ -76,7 +77,7 @@ const out = await esbuild.build({
   entryPoints: ['src/trackx.ts'],
   outfile: 'dist/trackx.js',
   platform: 'browser',
-  target: ['es2021'],
+  target,
   define: {
     'process.env.API_ENDPOINT': JSON.stringify(API_ENDPOINT),
     'process.env.APP_RELEASE': JSON.stringify(release),
@@ -97,7 +98,7 @@ await esbuild.build({
   entryPoints: ['src/content.ts'],
   outfile: 'dist/content.js',
   platform: 'browser',
-  target: ['es2021'],
+  target,
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
     'process.env.NODE_ENV': JSON.stringify(mode),
@@ -120,7 +121,7 @@ await esbuild.build({
   entryPoints: ['src/background.ts'],
   outfile: 'dist/background.js',
   platform: 'browser',
-  target: ['es2021'],
+  target,
   define: {
     'process.env.API_ENDPOINT': JSON.stringify(API_ENDPOINT),
     'process.env.API_ORIGIN': JSON.stringify(API_ORIGIN),
