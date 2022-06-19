@@ -40,7 +40,7 @@ trackx.setup(process.env.API_ENDPOINT!, (payload, reason) => {
 trackx.meta.agent = 'trackx-magnet';
 trackx.meta.release = process.env.APP_RELEASE;
 trackx.meta.referrer = document.referrer;
-const ancestors = globalThis.location?.ancestorOrigins;
+const ancestors = globalThis.location.ancestorOrigins;
 trackx.meta.ancestors = (ancestors?.length && [...ancestors]) || '';
 trackx.meta.embedded = (() => {
   try {
@@ -51,7 +51,7 @@ trackx.meta.embedded = (() => {
   }
 })() || '';
 
-const screenWidth = globalThis.screen?.width;
+const screenWidth = globalThis.screen.width;
 trackx.meta.screen_size = screenWidth < 576
   ? 'XS'
   : screenWidth < 992

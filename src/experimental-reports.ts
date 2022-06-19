@@ -29,7 +29,7 @@ document.addEventListener('securitypolicyviolation', (event) => {
       {
         body,
         type: 'csp-violation',
-        url: globalThis.location?.href,
+        url: globalThis.location.href,
       },
     ]),
   }).catch(console.error);
