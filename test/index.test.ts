@@ -8,4 +8,4 @@ test('placeholder', () => {
 test.run();
 
 // eslint-disable-next-line max-len
-// <iframe srcdoc="<!DOCTYPE html><script>console.log(window.frameElement.nodeName)</script>"></iframe>
+// <iframe srcdoc="<!DOCTYPE html><script>console.log(globalThis.frameElement?.nodeName)</script>"></iframe>
