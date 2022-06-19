@@ -1,17 +1,13 @@
 const OFF = 0;
 const WARN = 1;
 
-// TODO: Types
 // eslint-disable-next-line max-len
-// /** @type {import('eslint/lib/shared/types').ConfigData & { parserOptions: import('@typescript-eslint/types').ParserOptions }} */
+/** @type {import('eslint/lib/shared/types').ConfigData & { parserOptions: import('@typescript-eslint/types').ParserOptions }} */
 module.exports = {
   root: true,
   reportUnusedDisableDirectives: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    // FIXME: Remove once TS 4.6+ is released and typescript-eslint has support
-    //  ↳ https://github.com/typescript-eslint/typescript-eslint/issues/3950
-    extraFileExtensions: ['.mjs', '.cjs'],
     project: ['./test/tsconfig.json'],
     tsconfigRootDir: __dirname,
   },
