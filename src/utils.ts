@@ -2,7 +2,7 @@
  * Replace cyclic references in an object with '[Circular]'.
  * @param obj - A JSON-serializable object.
  */
-export const decycle = (obj: object) => {
+export const decycle = (obj: object): object => {
   const seen = new WeakSet();
 
   return JSON.parse(
