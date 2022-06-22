@@ -66,8 +66,8 @@ if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
 }
 
-// At the time this script is run the document is empty, so wait for content to
-// be populated before trying to access it
+// This script is likely to run before the document has been parsed so wait for
+// the DOM to be generated before trying to access it
 setTimeout(() => {
   trackx.meta.title = document.title;
 });

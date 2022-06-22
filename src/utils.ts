@@ -1,5 +1,5 @@
 /**
- * Replace cyclic references in an object with '[Circular]'.
+ * Clone an object and replace any cyclic references with '[Circular]'.
  * @param obj - A JSON-serializable object.
  */
 export const decycle = (obj: object): object => {
