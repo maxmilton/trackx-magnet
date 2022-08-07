@@ -4,7 +4,7 @@ import esbuild from 'esbuild';
 import { decodeUTF8, encodeUTF8, writeFiles } from 'esbuild-minify-templates';
 import fs from 'fs/promises';
 import path from 'path';
-import createManifest from './manifest.config.js';
+import { createManifest } from './manifest.config.mjs';
 
 // TODO: It's not possible to change this without recompiling the extension
 // because of the extension CSP is static. Provide documentation about how

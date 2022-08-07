@@ -1,14 +1,19 @@
-/* eslint-disable @typescript-eslint/no-var-requires, import/no-extraneous-dependencies */
+/* eslint-disable import/no-extraneous-dependencies */
 
 // https://developer.chrome.com/docs/extensions/mv2/manifest/
 // https://developer.chrome.com/docs/extensions/reference/
 
-const { gitRef } = require('git-ref');
-const blocklist = require('./src/blocklist.json');
-const pkg = require('./package.json');
+import { gitRef } from 'git-ref';
+import pkg from './package.json' assert { type: 'json' };
+import blocklist from './src/blocklist.json' assert { type: 'json' };
 
-/** @type {(opts: { API_ENDPOINT: string; API_ORIGIN: string }) => chrome.runtime.Manifest} */
-module.exports = (opts) => ({
+/**
+ * @param {object} opts
+ * @param {string} opts.API_ENDPOINT
+ * @param {string} opts.API_ORIGIN
+ * @returns {chrome.runtime.Manifest}
+ */
+export const createManifest = (opts) => ({
   manifest_version: 2, // v3 restricts injecting inline scripts and webRequestBlocking so we need v2
   name: 'TrackX Magnet',
   description: 'Collect error samples from web pages using the trackx client.',
@@ -38,9 +43,10 @@ module.exports = (opts) => ({
   incognito: 'not_allowed', // give users some privacy
   content_security_policy: [
     "default-src 'none'",
-    "script-src-elem 'self'",
+    "script-src 'self'",
     `connect-src ${opts.API_ORIGIN}`,
     `report-uri ${opts.API_ENDPOINT}/report`,
+    '',
   ].join(';'),
 
   // https://chrome.google.com/webstore/detail/trackx-magnet/nmdlenjlhfgjbmljgopgmigoljgmnpae
