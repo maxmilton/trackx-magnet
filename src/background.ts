@@ -72,23 +72,28 @@ chrome.webRequest.onHeadersReceived.addListener(
     for (const header of responseHeaders) {
       switch (header.name) {
         case 'content-security-policy':
-        case 'content-security-policy-report-only':
+        case 'content-security-policy-report-only': {
           header.value = modifyCSPHeader(header.value!);
           break;
-        case 'reporting-endpoints':
+        }
+        case 'reporting-endpoints': {
           hasReportingEndpoints = true;
           header.value = modifyReportingEndpointsHeader(header.value!);
           break;
-        case 'report-to':
+        }
+        case 'report-to': {
           hasReportTo = true;
           header.value = REPORT_TO_HEADER_VALUE;
           break;
-        case 'nel':
+        }
+        case 'nel': {
           hasNEL = true;
           header.value = NEL_HEADER_VALUE;
           break;
-        default:
+        }
+        default: {
           break;
+        }
       }
     }
 
