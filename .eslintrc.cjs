@@ -1,5 +1,6 @@
 const OFF = 0;
 const WARN = 1;
+const ERROR = 2;
 
 // eslint-disable-next-line max-len
 // /** @type {import('eslint/lib/shared/types').ConfigData & { parserOptions: import('@typescript-eslint/types').ParserOptions }} */
@@ -38,5 +39,6 @@ module.exports = {
     'unicorn/prefer-node-protocol': OFF,
     'unicorn/prefer-query-selector': OFF,
     'unicorn/prevent-abbreviations': OFF,
+    'unicorn/switch-case-braces': [ERROR, 'avoid'],
   },
 };
