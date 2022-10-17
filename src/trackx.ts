@@ -44,12 +44,12 @@ const ancestors = globalThis.location.ancestorOrigins;
 trackx.meta.ancestors = (ancestors?.length && [...ancestors]) || '';
 trackx.meta.embedded = (() => {
   try {
-    return globalThis.frameElement?.nodeName;
+    return globalThis.frameElement?.nodeName || '';
   } catch {
     // Catch SecurityError when parent is cross-origin
     return 'cross-origin';
   }
-})() || '';
+})();
 
 const screenWidth = globalThis.screen.width;
 trackx.meta.screen_size = screenWidth < 576
