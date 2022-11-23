@@ -16,18 +16,18 @@ function modifyCSPHeader(header: string): string {
     const nextSemiIndex = newHeader.indexOf(';', connectSrcIndex);
     newHeader = `${newHeader.slice(
       0,
-      nextSemiIndex !== -1 ? nextSemiIndex : undefined,
+      nextSemiIndex === -1 ? undefined : nextSemiIndex,
     )} ${process.env.API_ORIGIN!}${
-      nextSemiIndex !== -1 ? newHeader.slice(nextSemiIndex) : ''
+      nextSemiIndex === -1 ? '' : newHeader.slice(nextSemiIndex)
     }`;
   } else if (defaultSrcIndex !== -1) {
     // add to existing default-src directive
     const nextSemiIndex = newHeader.indexOf(';', defaultSrcIndex);
     newHeader = `${newHeader.slice(
       0,
-      nextSemiIndex !== -1 ? nextSemiIndex : undefined,
+      nextSemiIndex === -1 ? undefined : nextSemiIndex,
     )} ${process.env.API_ORIGIN!}${
-      nextSemiIndex !== -1 ? newHeader.slice(nextSemiIndex) : ''
+      nextSemiIndex === -1 ? '' : newHeader.slice(nextSemiIndex)
     }`;
   }
 
@@ -44,17 +44,17 @@ function modifyReportingEndpointsHeader(header: string): string {
   let newHeader = header;
   const defaultIndex = newHeader.indexOf('default=');
 
-  if (defaultIndex !== -1) {
+  if (defaultIndex === -1) {
+    // add new default endpoint
+    newHeader += `, default="${process.env.API_ENDPOINT!}/report"`;
+  } else {
     const nextCommaIndex = newHeader.indexOf(',', defaultIndex);
 
     // replace existing default endpoint
     newHeader = `${newHeader.slice(0, defaultIndex)}default="${process.env
       .API_ENDPOINT!}/report"${
-      nextCommaIndex !== -1 ? newHeader.slice(nextCommaIndex) : ''
+      nextCommaIndex === -1 ? '' : newHeader.slice(nextCommaIndex)
     }`;
-  } else {
-    // add new default endpoint
-    newHeader += `, default="${process.env.API_ENDPOINT!}/report"`;
   }
 
   return newHeader;
