@@ -5,7 +5,12 @@
     "source.fixAll.eslint"
   ],
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": false,
   "editor.formatOnSave": false,
+  "editor.formatOnType": false,
+  "eslint.lintTask.options": "--ignore-path .gitignore",
+  "git.branchProtection": ["master"],
   "js/ts.implicitProjectConfig.checkJs": true,
-  "prettier.ignorePath": ".gitignore"
+  "prettier.ignorePath": ".gitignore",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
