@@ -22,7 +22,7 @@
     "trackx": "0.6.0"
   },
   "devDependencies": {
-    "@types/chrome": "0.0.204",
+    "@types/chrome": "0.0.205",
     "@types/node": "18.11.17",
     "@typescript-eslint/eslint-plugin": "5.46.1",
     "@typescript-eslint/parser": "5.46.1",
