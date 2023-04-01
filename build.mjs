@@ -87,7 +87,6 @@ const out = await esbuild.build({
   bundle: true,
   minify: !dev,
   sourcemap: dev && 'inline',
-  watch: dev,
   metafile: !dev && process.stdout.isTTY,
   write: false,
   logLevel: 'debug',
@@ -111,7 +110,6 @@ await esbuild.build({
   minify: !dev,
   sourcemap: dev,
   write: dev,
-  watch: dev,
   metafile: !dev && process.stdout.isTTY,
   logLevel: 'debug',
 });
@@ -133,7 +131,6 @@ await esbuild.build({
   minify: !dev,
   sourcemap: dev,
   write: dev,
-  watch: dev,
   metafile: !dev && process.stdout.isTTY,
   logLevel: 'debug',
 });
