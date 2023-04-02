@@ -9,7 +9,8 @@ import { createManifest } from './manifest.config.mjs';
 // TODO: It's not possible to change this without recompiling the extension
 // because of the extension CSP is static. Provide documentation about how
 // to compile a custom build.
-const API_ENDPOINT = process.env.API_ENDPOINT || 'https://api.trackx.app/v1/pxdfcbscygy';
+const API_ENDPOINT =
+  process.env.API_ENDPOINT || 'https://api.trackx.app/v1/pxdfcbscygy';
 const API_ORIGIN = new URL(API_ENDPOINT).origin;
 
 const firefox = process.env.FIREFOX_BUILD;
@@ -32,8 +33,9 @@ const analyzeMeta = {
     if (!build.initialOptions.metafile) return;
 
     build.onEnd(
-      (result) => result.metafile
-        && build.esbuild.analyzeMetafile(result.metafile).then(console.log),
+      (result) =>
+        result.metafile &&
+        build.esbuild.analyzeMetafile(result.metafile).then(console.log),
     );
   },
 };

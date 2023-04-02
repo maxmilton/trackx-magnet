@@ -1,4 +1,4 @@
-/* eslint-disable no-param-reassign, unicorn/no-nested-ternary */
+/* eslint-disable no-param-reassign */
 
 import * as trackx from 'trackx/modern';
 import './experimental-reports';
@@ -20,7 +20,8 @@ trackx.setup(process.env.API_ENDPOINT!, (payload, reason) => {
       details[key] = (reason as Record<string, unknown>)[key] ?? null;
     }
 
-    payload.meta.details = Object.keys(details).length > 0 ? decycle(details) : '';
+    payload.meta.details =
+      Object.keys(details).length > 0 ? decycle(details) : '';
   }
 
   payload.meta.ctor ??= (() => {
@@ -52,15 +53,16 @@ trackx.meta.embedded = (() => {
 })();
 
 const screenWidth = globalThis.screen.width;
-trackx.meta.screen_size = screenWidth < 576
-  ? 'XS'
-  : screenWidth < 992
+trackx.meta.screen_size =
+  screenWidth < 576
+    ? 'XS'
+    : screenWidth < 992
     ? 'S'
     : screenWidth < 1440
-      ? 'M'
-      : screenWidth < 3840
-        ? 'L'
-        : 'XL';
+    ? 'M'
+    : screenWidth < 3840
+    ? 'L'
+    : 'XL';
 
 if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
@@ -77,9 +79,9 @@ const handleMessage = ({
   origin,
 }: MessageEvent<{ __tab?: chrome.tabs.Tab | undefined }>) => {
   if (
-    origin === globalThis.location.origin
-    && typeof data === 'object'
-    && '__tab' in data
+    origin === globalThis.location.origin &&
+    typeof data === 'object' &&
+    '__tab' in data
   ) {
     const tab = data.__tab;
 
