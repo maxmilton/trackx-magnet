@@ -2,7 +2,6 @@ const OFF = 0;
 const WARN = 1;
 const ERROR = 2;
 
-// eslint-disable-next-line max-len
 // /** @type {import('eslint/lib/shared/types').ConfigData & { parserOptions: import('@typescript-eslint/types').ParserOptions }} */
 module.exports = {
   root: true,
@@ -20,8 +19,10 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:unicorn/recommended',
+    'prettier',
     'plugin:security/recommended',
   ],
+  plugins: ['prettier'],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': WARN,
     '@typescript-eslint/no-use-before-define': WARN,
@@ -30,6 +31,7 @@ module.exports = {
     'no-restricted-syntax': OFF,
     'no-underscore-dangle': OFF,
     'no-void': OFF,
+    'prettier/prettier': WARN,
     'unicorn/filename-case': OFF,
     'unicorn/no-abusive-eslint-disable': WARN,
     'unicorn/no-null': OFF,
