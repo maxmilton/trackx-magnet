@@ -24,7 +24,8 @@ export const createManifest = (opts) => ({
     48: 'icon48.png',
     128: 'icon128.png',
   },
-  permissions: ['<all_urls>', 'tabs', 'webRequest', 'webRequestBlocking'],
+  // permissions: ['<all_urls>', 'tabs', 'webRequest', 'webRequestBlocking'],
+  permissions: ['<all_urls>', 'webRequest', 'webRequestBlocking'],
   background: {
     scripts: ['background.js'],
     // persistence required to use the chrome.webRequest API
