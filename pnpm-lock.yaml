@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   trackx:
-    specifier: 0.6.0
-    version: 0.6.0
+    specifier: 0.6.1
+    version: 0.6.1
 
 devDependencies:
   '@types/chrome':
@@ -2584,8 +2584,8 @@ packages:
       is-number: 7.0.0
     dev: true
 
-  /trackx@0.6.0:
-    resolution: {integrity: sha512-R4Y94Jy38CH0lAvlEmHxC8GRs3bRLFVbn3m9j8WeyUk7o7LKLbm1jQkB1qTGfoZIPTDHxv5ma7BvyR4lBrSjBQ==}
+  /trackx@0.6.1:
+    resolution: {integrity: sha512-6n6rwsELKbBYM29BDdT8tf+ooMEJ2YCDrWwKzMg2W8V/7nGPmW4tLCeBXCwvVxBPs6fiO6CpMpfGNIGvaMKabw==}
     dependencies:
       '@ungap/global-this': 0.4.4
     dev: false
