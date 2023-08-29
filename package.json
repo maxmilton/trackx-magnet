@@ -38,7 +38,7 @@
     "eslint-plugin-security": "1.7.1",
     "eslint-plugin-unicorn": "47.0.0",
     "git-ref": "0.4.0",
-    "prettier": "2.8.8",
+    "prettier": "3.0.3",
     "tsm": "2.3.0",
     "typescript": "5.1.6",
     "uvu": "0.5.6"
