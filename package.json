@@ -40,7 +40,7 @@
     "git-ref": "0.4.0",
     "prettier": "2.8.8",
     "tsm": "2.3.0",
-    "typescript": "5.1.6",
+    "typescript": "5.2.2",
     "uvu": "0.5.6"
   },
   "__pnpm": {
