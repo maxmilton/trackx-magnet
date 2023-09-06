@@ -29,7 +29,7 @@ export const createManifest = ({
   name: 'TrackX Magnet',
   description: pkg.description,
   homepage_url: pkg.homepage,
-  version: pkg.version,
+  version: pkg.version.split('-')[0],
   version_name: process.env.CI ? undefined : gitRef(),
   icons: {
     16: 'icon16.png',
