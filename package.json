@@ -1,61 +1,60 @@
 {
   "name": "trackx-magnet",
   "version": "2.10.0",
-  "description": "Browser extension to collect errors from web pages with the trackx client.",
+  "description": "Collect error samples from web pages with the trackx client.",
   "repository": "maxmilton/trackx-magnet",
   "homepage": "https://github.com/maxmilton/trackx-magnet",
   "author": "Max Milton <max@happyhackers.xyz>",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "pnpm run prebuild && NODE_ENV=production node build.mjs",
-    "dev": "NODE_ENV=development node build.mjs",
-    "lint": "pnpm run lint:js && pnpm run lint:ts",
+    "build": "NODE_ENV=production bun build.ts",
+    "dev": "NODE_ENV=development bun build.ts",
+    "lint": "bun run lint:js && bun run lint:ts",
     "lint:js": "eslint --ignore-path .gitignore --ext .cjs,.js,.mjs,.ts .",
-    "lint:ts": "tsc --project test --noEmit",
+    "lint:ts": "tsc --noEmit",
     "prebuild": "rm -rf dist; cp -r static dist",
-    "test": "c8 --all --include=src --reporter=text --reporter=lcovonly uvu -r tsm test '\\.test\\.ts$'",
-    "zip": "sh -c 'test -z \"$(git status --porcelain)\"' && pnpm run lint && pnpm run test && pnpm run build && cd dist && zip ../chrome-extension.zip *",
+    "test": "bun test --preload ./test/setup.ts test/unit",
+    "test:e2e": "TZ=UTC playwright test test/e2e/*.spec.ts",
+    "test:e2e:debug": "bun run test:e2e --debug",
+    "test:e2e:ui": "bun run test:e2e --ui",
+    "zip": "sh -c 'test -z \"$(git status --porcelain)\"' && bun run build && bun run lint && bun run test && cd dist && zip ../chrome-extension.zip *",
     "zip-ff": "export FIREFOX_BUILD=1 && pnpm run zip && mv chrome-extension.zip firefox-extension.zip"
   },
   "dependencies": {
     "trackx": "0.6.1"
   },
   "devDependencies": {
-    "@types/chrome": "0.0.239",
-    "@types/node": "20.3.3",
-    "@typescript-eslint/eslint-plugin": "5.61.0",
-    "@typescript-eslint/parser": "5.61.0",
-    "c8": "8.0.0",
-    "esbuild": "0.18.11",
-    "esbuild-minify-templates": "0.11.0",
-    "eslint": "8.44.0",
+    "@playwright/test": "1.37.1",
+    "@types/chrome": "0.0.245",
+    "@typescript-eslint/eslint-plugin": "6.6.0",
+    "@typescript-eslint/parser": "6.6.0",
+    "bun-types": "0.8.1",
+    "eslint": "8.48.0",
     "eslint-config-airbnb-base": "15.0.0",
-    "eslint-config-airbnb-typescript": "17.0.0",
-    "eslint-config-prettier": "8.8.0",
-    "eslint-plugin-import": "2.27.5",
-    "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-security": "1.7.1",
-    "eslint-plugin-unicorn": "47.0.0",
-    "git-ref": "0.4.0",
-    "prettier": "2.8.8",
-    "tsm": "2.3.0",
-    "typescript": "5.1.6",
-    "uvu": "0.5.6"
-  },
-  "__pnpm": {
-    "overrides": {
-      "trackx": "../trackx/packages/client"
-    }
+    "eslint-config-airbnb-typescript": "17.1.0",
+    "eslint-config-prettier": "9.0.0",
+    "eslint-plugin-import": "2.28.1",
+    "eslint-plugin-prettier": "5.0.0",
+    "eslint-plugin-unicorn": "48.0.1",
+    "happy-dom": "10.11.2",
+    "prettier": "3.0.3",
+    "prettier-plugin-pkg": "0.18.0",
+    "terser": "5.19.4",
+    "typescript": "5.2.2"
   },
   "prettier": {
     "arrowParens": "always",
     "endOfLine": "lf",
     "singleQuote": true,
     "trailingComma": "all",
+    "plugins": [
+      "prettier-plugin-pkg"
+    ],
     "overrides": [
       {
         "files": [
+          "*.spec.ts",
           "*.test.ts"
         ],
         "options": {

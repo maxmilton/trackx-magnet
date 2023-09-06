@@ -1,27 +1,24 @@
 name: publish
 on:
   push:
-    branches: [master]
     tags: [v*.*.*]
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: 19
-      - run: npm install --global pnpm
-      - run: pnpm install --frozen-lockfile
-        env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-      - run: pnpm run build
-      - run: pnpm run lint
-      - run: pnpm run test
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+      - run: bun run lint
+      - run: bun run test
       - run: cd dist && zip ../chrome-extension.zip *
-      - run: pnpm run build
+      - run: bun run build
         env:
           FIREFOX_BUILD: 1
       - run: cd dist && zip ../firefox-extension.zip *
