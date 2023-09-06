@@ -2,23 +2,28 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
+    "moduleResolution": "bundler",
+    "esModuleInterop": false,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "allowJs": true,
-    "checkJs": true,
-    "noEmit": true,
+    "allowJs": false,
 
     "strict": true,
     "allowUnreachableCode": false,
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": false, // covered by eslint
     "noImplicitOverride": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "verbatimModuleSyntax": true
+    "noUnusedLocals": false, // covered by eslint
+    "noUnusedParameters": false, // covered by eslint
+    "verbatimModuleSyntax": true,
+
+    "types": [
+      "bun-types",
+      "chrome",
+      "./node_modules/typescript/lib/lib.esnext.full.d.ts" // workaround for bun-types breaking dom types
+    ]
   },
-  "exclude": ["coverage", "dist", "node_modules", "test"]
+  "include": ["src", "test", "build.ts", "manifest.config.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
