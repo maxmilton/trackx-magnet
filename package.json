@@ -1,6 +1,6 @@
 {
   "name": "trackx-magnet",
-  "version": "3.0.0-next.1",
+  "version": "3.0.0-next.2",
   "description": "Collect error samples from web pages with the trackx client.",
   "repository": "maxmilton/trackx-magnet",
   "homepage": "https://github.com/maxmilton/trackx-magnet",
