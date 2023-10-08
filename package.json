@@ -11,7 +11,7 @@
     "build": "NODE_ENV=production bun build.ts",
     "dev": "NODE_ENV=development bun build.ts",
     "lint": "bun run lint:js && bun run lint:ts",
-    "lint:js": "eslint --ignore-path .gitignore --ext .cjs,.js,.mjs,.ts .",
+    "lint:js": "eslint --ignore-path .gitignore --ext .ts,.mjs,.js,.cjs .",
     "lint:ts": "tsc --noEmit",
     "prebuild": "rm -rf dist; cp -r static dist",
     "test": "bun test --preload ./test/setup.ts test/unit",
