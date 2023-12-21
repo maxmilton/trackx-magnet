@@ -13,9 +13,8 @@
 import type { ClientType, EventMeta, EventType } from 'trackx/types';
 import type { CaptureData } from './types';
 
-// TODO: Force disable `bun-types` for this file and use `esnext` lib instead
-// eslint-disable-next-line no-var
-declare var addEventListener: Window['addEventListener'];
+// TODO: Fix bun types overriding dom types
+declare let addEventListener: Window['addEventListener'];
 
 void fetch(`${process.env.API_ENDPOINT}/ping`, {
   method: 'POST',
