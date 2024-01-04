@@ -21,16 +21,17 @@ interface CreateManifestOptions {
   API_ORIGIN: string;
 }
 
-export const createManifest = ({
-  API_ENDPOINT,
-  API_ORIGIN,
-}: CreateManifestOptions): chrome.runtime.ManifestV3 => ({
+export const createManifest = (
+  { API_ENDPOINT, API_ORIGIN }: CreateManifestOptions,
+  debug = !process.env.CI,
+): chrome.runtime.ManifestV3 => ({
   manifest_version: 3,
   name: 'TrackX Magnet',
   description: pkg.description,
   homepage_url: pkg.homepage,
   version: pkg.version.split('-')[0],
-  version_name: process.env.CI ? undefined : gitRef(),
+  // shippable releases should not have a named version
+  version_name: debug ? gitRef() : undefined,
   icons: {
     16: 'icon16.png',
     48: 'icon48.png',
