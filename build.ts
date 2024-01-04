@@ -80,10 +80,11 @@ async function minifyJS(artifact: Blob & { path: string }) {
       pure_funcs: ['performance.mark', 'performance.measure'],
       // Inline `new RegExp`
       unsafe: true,
+      passes: 3,
     },
     mangle: {
       properties: {
-        regex: /^\$\$/, // somewhat unsafe!
+        regex: /^\$\$/,
       },
     },
   });
@@ -95,6 +96,5 @@ if (!dev) {
   console.time('minify');
   await minifyJS(out.outputs[0]);
   await minifyJS(out2.outputs[0]);
-  // await minifyJS(out3.outputs[0]);
   console.timeEnd('minify');
 }
