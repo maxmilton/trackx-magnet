@@ -1,3 +1,5 @@
+'use strict'; // eslint-disable-line
+
 const OFF = 0;
 const WARN = 1;
 const ERROR = 2;
@@ -45,7 +47,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.spec.ts', '*.test.ts', '*.d.ts', '*.config.ts', 'build.ts'],
+      files: ['*.spec.ts', '*.test.ts', 'build.ts', '*.config.ts', '*.d.ts'],
       rules: {
         'import/no-extraneous-dependencies': OFF,
       },

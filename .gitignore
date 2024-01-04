@@ -5,5 +5,7 @@
 *.log
 *.zip
 /coverage/
-dist
-node_modules
+/dist/
+/node_modules/
+/playwright-report/
+/test-results/
