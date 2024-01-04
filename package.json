@@ -43,24 +43,4 @@
     "terser": "5.26.0",
     "typescript": "5.3.3"
   },
-  "prettier": {
-    "arrowParens": "always",
-    "endOfLine": "lf",
-    "singleQuote": true,
-    "trailingComma": "all",
-    "plugins": [
-      "prettier-plugin-pkg"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "*.spec.ts",
-          "*.test.ts"
-        ],
-        "options": {
-          "printWidth": 100
-        }
-      }
-    ]
-  }
 }
