@@ -11,8 +11,8 @@ dependencies:
 
 devDependencies:
   '@types/chrome':
-    specifier: 0.0.239
-    version: 0.0.239
+    specifier: 0.0.256
+    version: 0.0.256
   '@types/node':
     specifier: 20.3.3
     version: 20.3.3
@@ -444,8 +444,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@types/chrome@0.0.239:
-    resolution: {integrity: sha512-s/v0pAdpjqfYdwYPDIRiIQDyXfaLi5u+OyHW2NexhqoTm/KZVqKqS1isK11DVu/iUrAUULtbfKtzLKt3+kHgXQ==}
+  /@types/chrome@0.0.256:
+    resolution: {integrity: sha512-NleTQw4DNzhPwObLNuQ3i3nvX1rZ1mgnx5FNHc2KP+Cj1fgd3BrT5yQ6Xvs+7H0kNsYxCY+lxhiCwsqq3JwtEg==}
     dependencies:
       '@types/filesystem': 0.0.32
       '@types/har-format': 1.2.11
