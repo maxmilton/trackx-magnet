@@ -1,14 +1,27 @@
-/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-namespace, no-console */
 
 import * as terser from 'terser';
 import { createManifest } from './manifest.config';
 import blocklist from './src/blocklist.json' assert { type: 'json' };
 
+declare global {
+  // biome-ignore lint/style/noNamespace: <explanation>
+  namespace NodeJS {
+    interface ProcessEnv {
+      API_ENDPOINT: string;
+      API_ORIGIN: string;
+      APP_RELEASE: string;
+      BLOCKLIST_REGEX_STR: string;
+    }
+  }
+}
+
 // TODO: It's not possible to change this without recompiling the extension
 // because of the extension CSP is static. Provide documentation about how
 // to compile a custom build.
 const API_ENDPOINT =
-  process.env.API_ENDPOINT ?? 'https://api.trackx.app/v1/pxdfcbscygy';
+  (Bun.env.API_ENDPOINT as string | undefined) ??
+  'https://api.trackx.app/v1/pxdfcbscygy';
 const API_ORIGIN = new URL(API_ENDPOINT).origin;
 
 const mode = Bun.env.NODE_ENV;
@@ -17,8 +30,10 @@ const manifest = createManifest({ API_ENDPOINT, API_ORIGIN });
 const release = manifest.version_name ?? manifest.version;
 
 // TODO: Firefox support for manifest v3, esp. content_scripts "world".
-if (process.env.FIREFOX_BUILD) {
+if (Bun.env.FIREFOX_BUILD) {
+  // biome-ignore lint/performance/noDelete: build-time only
   delete manifest.version_name;
+  // biome-ignore lint/performance/noDelete: build-time only
   delete manifest.key;
 }
 
@@ -58,9 +73,9 @@ const out2 = await Bun.build({
   sourcemap: dev ? 'external' : 'none',
 });
 console.timeEnd('build2');
-
 console.log(out, out2);
 
+// consistent mangled names across files
 const nameCache = {};
 
 async function minifyJS(artifact: Blob & { path: string }) {

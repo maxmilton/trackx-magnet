@@ -36,6 +36,7 @@ const capture = (type: number, error: unknown, extra?: EventMeta): void =>
   // a function reference (due to the structured clone algorithm).
   // ↳ https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#things_that_dont_work_with_structured_clone
   postMessage({
+    // biome-ignore lint/style/useNamingConvention: less likely to collide with other extensions
     x_x: true,
     $$type: type,
     $$error: error,

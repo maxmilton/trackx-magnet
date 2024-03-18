@@ -16,6 +16,7 @@ import type { CaptureData } from './types';
 // TODO: Fix bun types overriding dom types
 declare let addEventListener: Window['addEventListener'];
 
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
 void fetch(`${process.env.API_ENDPOINT}/ping`, {
   method: 'POST',
   keepalive: true,
@@ -29,7 +30,7 @@ const TIMEOUT_MS = 60_000; // 60 seconds
 // TODO: It would be nice to know how many blocks are happening, since they
 // skew the data.
 const blocklistMatch = () =>
-  new RegExp(process.env.BLOCKLIST_REGEX_STR!, 'i').test(
+  new RegExp(process.env.BLOCKLIST_REGEX_STR, 'i').test(
     document.title + location.href,
   );
 
@@ -62,7 +63,7 @@ const send = async (
 ) => {
   // console.log(
   //   'blocklistMatch',
-  //   new RegExp(process.env.BLOCKLIST_REGEX_STR!, 'i').exec(
+  //   new RegExp(process.env.BLOCKLIST_REGEX_STR, 'i').exec(
   //     document.title + location.href,
   //   ),
   // );
@@ -98,6 +99,7 @@ const send = async (
         throw undefined;
       }
     } catch {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       void send(route, contentType, body, attempt + 1);
     }
   }
@@ -121,6 +123,7 @@ const sendEvent = (type: EventType, error: unknown, extraMeta?: EventMeta) => {
     details[key] = ex[key];
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   void send('event', 'application/json', {
     name: ex.name,
     message,
@@ -158,6 +161,7 @@ const sendEvent = (type: EventType, error: unknown, extraMeta?: EventMeta) => {
 };
 
 const sendReport = (body: object) => {
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   void send('report', 'application/reports+json', body);
 };
 
