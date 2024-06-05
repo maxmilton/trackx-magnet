@@ -26,6 +26,7 @@ module.exports = {
     'import/prefer-default-export': OFF,
     'no-restricted-syntax': OFF,
     'no-void': OFF,
+    'unicorn/import-style': WARN,
     'unicorn/no-abusive-eslint-disable': WARN,
     'unicorn/no-null': OFF,
     'unicorn/prefer-module': WARN,
