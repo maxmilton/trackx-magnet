@@ -16,7 +16,6 @@ import type { CaptureData } from './types';
 // TODO: Fix bun types overriding dom types
 declare let addEventListener: Window['addEventListener'];
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
 void fetch(`${process.env.API_ENDPOINT}/ping`, {
   method: 'POST',
   keepalive: true,
@@ -95,11 +94,10 @@ const send = async (
             (+res.headers.get('retry-after')! || FALLBACK_LOCK_TTL) * 1000,
         });
       } else if (res.status !== 200) {
-        // eslint-disable-next-line @typescript-eslint/no-throw-literal
-        throw undefined;
+        // eslint-disable-next-line @typescript-eslint/no-throw-literal, @typescript-eslint/only-throw-error
+        throw null;
       }
     } catch {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       void send(route, contentType, body, attempt + 1);
     }
   }
@@ -123,7 +121,6 @@ const sendEvent = (type: EventType, error: unknown, extraMeta?: EventMeta) => {
     details[key] = ex[key];
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   void send('event', 'application/json', {
     name: ex.name,
     message,
@@ -161,7 +158,6 @@ const sendEvent = (type: EventType, error: unknown, extraMeta?: EventMeta) => {
 };
 
 const sendReport = (body: object) => {
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   void send('report', 'application/reports+json', body);
 };
 
