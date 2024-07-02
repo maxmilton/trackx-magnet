@@ -1,11 +1,13 @@
+// TODO: Firefox support for manifest v3, esp. content_scripts "world".
+
 /* eslint-disable @typescript-eslint/no-namespace, no-console */
 
 import * as terser from 'terser';
 import { createManifest } from './manifest.config';
-import blocklist from './src/blocklist.json' assert { type: 'json' };
+import blocklist from './src/blocklist.json' with { type: 'json' };
 
 declare global {
-  // biome-ignore lint/style/noNamespace: <explanation>
+  // biome-ignore lint/style/noNamespace: inject process.env vars
   namespace NodeJS {
     interface ProcessEnv {
       API_ENDPOINT: string;
@@ -16,29 +18,33 @@ declare global {
   }
 }
 
-// TODO: It's not possible to change this without recompiling the extension
-// because of the extension CSP is static. Provide documentation about how
-// to compile a custom build.
+// FIXME: Add docs explaining how to change the API endpoint. It's not possible
+// to change without recompiling because the extension CSP is static.
 const API_ENDPOINT =
-  (Bun.env.API_ENDPOINT as string | undefined) ??
-  'https://api.trackx.app/v1/pxdfcbscygy';
+  Bun.env.API_ENDPOINT || 'https://api.trackx.app/v1/pxdfcbscygy';
 const API_ORIGIN = new URL(API_ENDPOINT).origin;
 
+const firefox = Bun.env.FIREFOX_BUILD;
 const mode = Bun.env.NODE_ENV;
 const dev = mode === 'development';
+
+console.time('prebuild');
+await Bun.$`rm -rf dist`;
+await Bun.$`cp -r static dist`;
+console.timeEnd('prebuild');
+
+// Extension manifest
+console.time('manifest');
 const manifest = createManifest({ API_ENDPOINT, API_ORIGIN });
 const release = manifest.version_name ?? manifest.version;
 
-// TODO: Firefox support for manifest v3, esp. content_scripts "world".
-if (Bun.env.FIREFOX_BUILD) {
-  // biome-ignore lint/performance/noDelete: build-time only
-  delete manifest.version_name;
-  // biome-ignore lint/performance/noDelete: build-time only
-  delete manifest.key;
+if (firefox) {
+  manifest.version_name = undefined;
+  manifest.key = undefined;
 }
 
-// Extension manifest
 await Bun.write('dist/manifest.json', JSON.stringify(manifest));
+console.timeEnd('manifest');
 
 // In-page injected content script (same execution context as page)
 console.time('build');
@@ -55,6 +61,7 @@ const out = await Bun.build({
   sourcemap: dev ? 'external' : 'none',
 });
 console.timeEnd('build');
+console.log(out);
 
 // Content script (isolated execution context)
 console.time('build2');
@@ -73,7 +80,7 @@ const out2 = await Bun.build({
   sourcemap: dev ? 'external' : 'none',
 });
 console.timeEnd('build2');
-console.log(out, out2);
+console.log(out2);
 
 // consistent mangled names across files
 const nameCache = {};
