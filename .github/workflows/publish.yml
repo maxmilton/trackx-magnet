@@ -8,24 +8,32 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
+      id-token: write
+      attestations: write
     steps:
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v1
+      - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun run build
       - run: bun run lint
       - run: bun run test
-      - run: cd dist && zip ../chrome-extension.zip *
+      - run: zip -jv chrome-extension.zip dist/*
       - run: bun run build
         env:
           FIREFOX_BUILD: 1
-      - run: cd dist && zip ../firefox-extension.zip *
-      - uses: maxmilton/action-create-release@v0
+      - run: zip -jv firefox-extension.zip dist/*
+      - uses: actions/attest-build-provenance@v1
         with:
-          files: |
+          subject-path: |
             chrome-extension.zip
             firefox-extension.zip
-          git-tag: ${{ github.ref }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          gh release create --draft --generate-notes \
+            "${{ github.ref_name }}" \
+            chrome-extension.zip \
+            firefox-extension.zip
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
