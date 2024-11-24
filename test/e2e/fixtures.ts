@@ -11,13 +11,13 @@ export const test = baseTest.extend<{
 }>({
   // biome-ignore lint/correctness/noEmptyPattern: empty initial context
   async context({}, use) {
-    const pathToExtension = path.join(__dirname, '../../dist');
+    const extensionPath = path.join(__dirname, '../../dist');
     const context = await chromium.launchPersistentContext('', {
       args: [
         '--headless=new', // chromium 112+
         // '--virtual-time-budget=5000', // chromium 112+, fast-forward timers
-        `--disable-extensions-except=${pathToExtension}`,
-        `--load-extension=${pathToExtension}`,
+        `--disable-extensions-except=${extensionPath}`,
+        `--load-extension=${extensionPath}`,
       ],
     });
     await use(context);
@@ -26,7 +26,7 @@ export const test = baseTest.extend<{
   // async extensionId({ context }, use) {
   //   let [background] = context.serviceWorkers();
   //   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  //   if (!background) background = await context.waitForEvent('serviceworker');
+  //   background ??= await context.waitForEvent('serviceworker');
   //
   //   const extensionId = background.url().split('/')[2];
   //   await use(extensionId);
