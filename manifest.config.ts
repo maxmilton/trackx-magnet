@@ -1,4 +1,6 @@
 // https://developer.chrome.com/docs/extensions/mv2/manifest/
+// https://developer.chrome.com/docs/extensions/mv3/manifest/
+// https://developer.chrome.com/docs/extensions/mv3/devguide/
 // https://developer.chrome.com/docs/extensions/reference/
 
 import pkg from './package.json' with { type: 'json' };

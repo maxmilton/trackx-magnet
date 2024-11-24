@@ -94,8 +94,8 @@ const send = async (
             (+res.headers.get('retry-after')! || FALLBACK_LOCK_TTL) * 1000,
         });
       } else if (res.status !== 200) {
-        // eslint-disable-next-line @typescript-eslint/no-throw-literal, @typescript-eslint/only-throw-error
-        throw null;
+        // biome-ignore lint/style/useThrowOnlyError: thrown value is not used
+        throw null; // eslint-disable-line @typescript-eslint/only-throw-error, no-throw-literal
       }
     } catch {
       void send(route, contentType, body, attempt + 1);
