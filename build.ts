@@ -1,22 +1,8 @@
 // TODO: Firefox support for manifest v3, esp. content_scripts "world".
 
-/* eslint-disable @typescript-eslint/no-namespace, no-console */
-
 import * as terser from 'terser';
 import { createManifest } from './manifest.config';
 import blocklist from './src/blocklist.json' with { type: 'json' };
-
-declare global {
-  // biome-ignore lint/style/noNamespace: inject process.env vars
-  namespace NodeJS {
-    interface ProcessEnv {
-      API_ENDPOINT: string;
-      API_ORIGIN: string;
-      APP_RELEASE: string;
-      BLOCKLIST_REGEX_STR: string;
-    }
-  }
-}
 
 // FIXME: Add docs explaining how to change the API endpoint. It's not possible
 // to change without recompiling because the extension CSP is static.
