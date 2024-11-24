@@ -1,7 +1,9 @@
 {
   "recommendations": [
     "biomejs.biome",
+    "dbaeumer.vscode-eslint",
     "oven.bun-vscode",
-    "dbaeumer.vscode-eslint"
+    "stylelint.vscode-stylelint",
+    "tekumara.typos-vscode"
   ]
 }
