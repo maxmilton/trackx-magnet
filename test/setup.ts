@@ -1,6 +1,6 @@
-import '@maxmilton/test-utils/extend';
+import "@maxmilton/test-utils/extend";
 
-import { setupDOM } from '@maxmilton/test-utils/dom';
+import { setupDOM } from "@maxmilton/test-utils/dom";
 
 const noop = () => {};
 
@@ -23,7 +23,7 @@ function setupMocks(): void {
 
 export function reset(): void {
   setupDOM({
-    url: 'chrome-extension://nmdlenjlhfgjbmljgopgmigoljgmnpae/',
+    url: "chrome-extension://nmdlenjlhfgjbmljgopgmigoljgmnpae/",
   });
   setupMocks();
 }

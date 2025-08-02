@@ -56,4 +56,4 @@ The [magnet icon](https://github.com/twitter/twemoji/blob/master/assets/svg/1f9f
 
 ---
 
-© 2024 [Max Milton](https://maxmilton.com)
+© [Max Milton](https://maxmilton.com)

@@ -10,16 +10,16 @@
 /* eslint-disable no-restricted-globals */
 /* eslint unicorn/no-await-expression-member: "warn" */
 
-import type { ClientType, EventMeta, EventType } from 'trackx/types';
-import type { CaptureData } from './types';
+import type { ClientType, EventMeta, EventType } from "trackx/types";
+import type { CaptureData } from "./types.ts";
 
 // TODO: Fix bun types overriding dom types
-declare let addEventListener: Window['addEventListener'];
+declare let addEventListener: Window["addEventListener"];
 
 void fetch(`${process.env.API_ENDPOINT}/ping`, {
-  method: 'POST',
+  method: "POST",
   keepalive: true,
-  mode: 'no-cors',
+  mode: "no-cors",
 });
 
 const FALLBACK_LOCK_TTL = 1800; // seconds; 30 minutes
@@ -29,7 +29,7 @@ const TIMEOUT_MS = 60_000; // 60 seconds
 // TODO: It would be nice to know how many blocks are happening, since they
 // skew the data.
 const blocklistMatch = () =>
-  new RegExp(process.env.BLOCKLIST_REGEX_STR, 'i').test(
+  new RegExp(process.env.BLOCKLIST_REGEX_STR, "i").test(
     document.title + location.href,
   );
 
@@ -43,9 +43,9 @@ const decycle = <T extends object>(obj: T): T => {
 
   return JSON.parse(
     JSON.stringify(obj, (_key: string, value: unknown) => {
-      if (value != null && typeof value === 'object') {
+      if (value != null && typeof value === "object") {
         if (seen.has(value)) {
-          return '[Circular]';
+          return "[Circular]";
         }
         seen.add(value);
       }
@@ -55,7 +55,7 @@ const decycle = <T extends object>(obj: T): T => {
 };
 
 const send = async (
-  route: 'event' | 'report',
+  route: "event" | "report",
   contentType: string,
   body: object,
   attempt = 0,
@@ -80,9 +80,9 @@ const send = async (
 
     try {
       const res = await fetch(`${process.env.API_ENDPOINT}/${route}`, {
-        method: 'POST',
+        method: "POST",
         keepalive: true,
-        headers: { 'Content-Type': contentType },
+        headers: { "Content-Type": contentType },
         body: JSON.stringify(body),
         signal: abort.signal,
       });
@@ -91,10 +91,9 @@ const send = async (
         await chrome.storage.local.set({
           [location.origin]:
             Date.now() +
-            (+res.headers.get('retry-after')! || FALLBACK_LOCK_TTL) * 1000,
+            (+res.headers.get("retry-after")! || FALLBACK_LOCK_TTL) * 1000,
         });
       } else if (res.status !== 200) {
-        // biome-ignore lint/style/useThrowOnlyError: thrown value is not used
         throw null; // eslint-disable-line @typescript-eslint/only-throw-error, no-throw-literal
       }
     } catch {
@@ -104,7 +103,7 @@ const send = async (
 };
 
 const sendEvent = (type: EventType, error: unknown, extraMeta?: EventMeta) => {
-  const ex = (error != null && typeof error === 'object' ? error : {}) as Error;
+  const ex = (error != null && typeof error === "object" ? error : {}) as Error;
   const details: Record<string, unknown> = {};
   let message = (ex.message || error) as string;
 
@@ -121,7 +120,7 @@ const sendEvent = (type: EventType, error: unknown, extraMeta?: EventMeta) => {
     details[key] = ex[key];
   }
 
-  void send('event', 'application/json', {
+  void send("event", "application/json", {
     name: ex.name,
     message,
     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing, unicorn/error-message
@@ -129,25 +128,25 @@ const sendEvent = (type: EventType, error: unknown, extraMeta?: EventMeta) => {
     type,
     uri: location.href,
     meta: {
-      _c: '_' as ClientType.Custom,
-      _v: '0.0.0',
+      _c: "_" as ClientType.Custom,
+      _v: "0.0.0",
       // NODE_ENV: process.env.NODE_ENV ?? 'NULL',
-      agent: 'trackx-magnet',
+      agent: "trackx-magnet",
       release: process.env.APP_RELEASE,
       ancestors: [...location.ancestorOrigins],
       embedded: (() => {
         try {
-          return frameElement?.nodeName ?? '';
+          return frameElement?.nodeName ?? "";
         } catch {
           // Catch SecurityError when parent is cross-origin
-          return 'cross-origin';
+          return "cross-origin";
         }
       })(),
       ctor: (() => {
         try {
           return ex.constructor.name;
         } catch {
-          return '';
+          return "";
         }
       })(),
       proto: Object.prototype.toString.call(ex),
@@ -158,14 +157,31 @@ const sendEvent = (type: EventType, error: unknown, extraMeta?: EventMeta) => {
 };
 
 const sendReport = (body: object) => {
-  void send('report', 'application/reports+json', body);
+  void send("report", "application/reports+json", body);
 };
 
+// const isFromOurScript = (
+//   source: MessageEventSource | null,
+//   data: unknown,
+// ): data is CaptureData =>
+//   source === window &&
+//   typeof data === 'object' &&
+//   !!(data as null | CaptureData)?.x_x;
+
 addEventListener(
-  'message',
-  ({ data, source }: MessageEvent<CaptureData | undefined>) => {
-    if (source === window && data && typeof data === 'object' && data.x_x) {
-      sendEvent(data.$$type, data.$$error, data.$$extra);
+  "message",
+  ({ data, source }: MessageEvent<unknown>) => {
+    // if (isFromOurScript(source, data)) {
+    if (
+      source === window &&
+      typeof data === "object" &&
+      (data as null | CaptureData)?.x_x
+    ) {
+      sendEvent(
+        (data as CaptureData).$$type,
+        (data as CaptureData).$$error,
+        (data as CaptureData).$$extra,
+      );
     }
   },
   false,
@@ -173,32 +189,32 @@ addEventListener(
 
 // Listen for CSP violations. This new event is much easier, cleaner, and has
 // better performance than modifying each page request CSP header.
-addEventListener('securitypolicyviolation', (event) => {
+addEventListener("securitypolicyviolation", (event) => {
   const body: Record<string, unknown> = {};
 
   for (const key of [
-    'blockedURI',
-    'columnNumber',
-    'disposition',
-    'documentURI',
-    'effectiveDirective',
-    'lineNumber',
-    'originalPolicy',
-    'referrer',
-    'sample',
-    'sourceFile',
-    'statusCode',
-    'violatedDirective',
+    "blockedURI",
+    "columnNumber",
+    "disposition",
+    "documentURI",
+    "effectiveDirective",
+    "lineNumber",
+    "originalPolicy",
+    "referrer",
+    "sample",
+    "sourceFile",
+    "statusCode",
+    "violatedDirective",
   ] as const) {
     body[key] = event[key];
   }
 
-  sendReport([{ body, type: 'csp-violation', url: location.href }]);
+  sendReport([{ body, type: "csp-violation", url: location.href }]);
 });
 
 // https://developer.mozilla.org/en-US/docs/Web/API/ReportingObserver
 // https://web.dev/reporting-observer/
-if ('ReportingObserver' in globalThis) {
+if ("ReportingObserver" in globalThis) {
   // TODO: Verify this works (keep in mind it's blocked in Brave)
   new ReportingObserver(sendReport, { buffered: true }).observe();
 }

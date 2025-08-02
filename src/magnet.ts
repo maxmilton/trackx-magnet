@@ -8,23 +8,11 @@
 
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
-import type { EventMeta } from 'trackx/types';
-import type { CaptureData } from './types';
+import type { EventMeta } from "trackx/types";
+import { type CaptureData, EventType } from "./types.ts";
 
-// TODO: Fix bun types overriding dom types
-declare let addEventListener: Window['addEventListener'];
-declare let postMessage: Window['postMessage'];
-
-// Same as https://github.com/maxmilton/trackx/blob/master/packages/trackx/src/modern.ts#L27-L30
-// TODO: Use enum once bun support inlining them; https://github.com/oven-sh/bun/issues/2945
-// const enum EventType {
-//   UnhandledError = 1,
-//   UnhandledRejection = 2,
-//   ConsoleError = 3,
-// }
-const EventTypeUnhandledError = 1;
-const EventTypeUnhandledRejection = 2;
-const EventTypeConsoleError = 3;
+declare const addEventListener: Window["addEventListener"];
+declare const postMessage: Window["postMessage"];
 
 // TODO: Check how custom errors are handled. The structured clone algorithm
 // spec says non-standard error names should be set to "Error". It would be
@@ -36,27 +24,26 @@ const capture = (type: number, error: unknown, extra?: EventMeta): void =>
   // a function reference (due to the structured clone algorithm).
   // ↳ https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm#things_that_dont_work_with_structured_clone
   postMessage({
-    // biome-ignore lint/style/useNamingConvention: less likely to collide with other extensions
     x_x: true,
     $$type: type,
     $$error: error,
     $$extra: extra,
   } satisfies CaptureData);
 
-addEventListener('error', (event) =>
-  capture(EventTypeUnhandledError, event.error),
+addEventListener("error", (event) =>
+  capture(EventType.UNHANDLED_ERROR, event.error),
 );
-addEventListener('unhandledrejection', (event) =>
-  capture(EventTypeUnhandledRejection, event.reason),
+addEventListener("unhandledrejection", (event) =>
+  capture(EventType.UNHANDLED_REJECTION, event.reason),
 );
 
 // eslint-disable-next-line no-console
 console.error = new Proxy(console.error, {
   apply(target, thisArg, args) {
     if (args[0] instanceof Error) {
-      capture(EventTypeConsoleError, args[0], { rest: args.slice(1) });
+      capture(EventType.CONSOLE_ERROR, args[0], { rest: args.slice(1) });
     } else {
-      capture(EventTypeConsoleError, args);
+      capture(EventType.CONSOLE_ERROR, args);
     }
     target.apply(thisArg, args);
   },
